@@ -38,7 +38,6 @@
       master: '',
       invoices: '',
       expenses: '',
-      journals: ''
     }
   };
 
@@ -55,7 +54,6 @@
     renderMasterView();
     renderInvoicesTable();
     renderExpensesTable();
-    renderJournalsTable();
     renderBankingView();
     renderFinancialReport();
     renderSettingsView();
@@ -319,7 +317,6 @@
       master: "Master Categories & Outlets",
       invoices: "Sales & Invoicing",
       expenses: "Expenses & Vendor Bills",
-      journals: "General Ledger & Journal Entries",
       banking: "Cash & Bank Accounts",
       reports: "Financial Statements & Reports",
       settings: "Company Settings & Logo"
@@ -332,7 +329,6 @@
     if (viewName === 'master') renderCurrentMasterTab();
     if (viewName === 'invoices') renderInvoicesTable();
     if (viewName === 'expenses') renderExpensesTable();
-    if (viewName === 'journals') renderJournalsTable();
     if (viewName === 'banking') renderBankingView();
     if (viewName === 'reports') renderFinancialReport();
   }
@@ -367,7 +363,6 @@
     renderCurrentMasterTab();
     renderInvoicesTable();
     renderExpensesTable();
-    renderJournalsTable();
     renderBankingView();
     renderFinancialReport();
     renderSettingsView();
@@ -1316,72 +1311,6 @@
         </td>
       </tr>
     `).join('');
-  }
-
-  // ==========================================
-  // GENERAL LEDGER & JOURNALS
-  // ==========================================
-  function renderJournalsTable() {
-    const container = document.getElementById('journals-container');
-    if (!container) return;
-
-    const query = state.searchQueries.journals;
-    const list = state.journalEntries.filter(je => 
-      !query || je.id.toLowerCase().includes(query) || (je.narration && je.narration.toLowerCase().includes(query)) || (je.reference && je.reference.toLowerCase().includes(query))
-    );
-
-    if (list.length === 0) {
-      container.innerHTML = '<div style="padding: 30px; text-align: center; color: #94a3b8;">No journal entries found.</div>';
-      return;
-    }
-
-    container.innerHTML = list.map(je => {
-      const totalDebit = je.lines.reduce((s, l) => s + (Number(l.debit) || 0), 0);
-      const totalCredit = je.lines.reduce((s, l) => s + (Number(l.credit) || 0), 0);
-
-      return `
-        <div class="table-card" style="margin-bottom: 20px;">
-          <div class="table-toolbar" style="background: #fafaf9;">
-            <div>
-              <span style="font-weight: 700; font-size: 15px; color: var(--primary-dark);">${je.id}</span>
-              <span style="margin-left: 12px; color: #64748b; font-size: 13px;">${formatDate(je.date)}</span>
-              ${je.reference ? `<span class="badge badge-secondary" style="margin-left: 8px;">Ref: ${je.reference}</span>` : ''}
-            </div>
-            <div style="font-size: 13px; color: #475569;">
-              <strong>${je.narration}</strong>
-            </div>
-            <button class="btn btn-danger btn-sm" onclick="window.FCW.deleteJournal('${je.id}')">Delete</button>
-          </div>
-          <div class="table-wrapper">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Account Code</th>
-                  <th>Account Title</th>
-                  <th class="text-right" style="width: 160px;">Debit (₹)</th>
-                  <th class="text-right" style="width: 160px;">Credit (₹)</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${je.lines.map(line => `
-                  <tr>
-                    <td><code>${line.accountCode}</code></td>
-                    <td>${line.accountName || getAccountNameByCode(line.accountCode)}</td>
-                    <td class="text-right">${line.debit > 0 ? formatCurrency(line.debit) : '-'}</td>
-                    <td class="text-right">${line.credit > 0 ? formatCurrency(line.credit) : '-'}</td>
-                  </tr>
-                `).join('')}
-                <tr style="background-color: #f8fafc; font-weight: 700;">
-                  <td colspan="2" class="text-right">Entry Totals:</td>
-                  <td class="text-right" style="color: #047857;">${formatCurrency(totalDebit)}</td>
-                  <td class="text-right" style="color: #047857;">${formatCurrency(totalCredit)}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      `;
-    }).join('');
   }
 
   // ==========================================
@@ -3343,171 +3272,6 @@
     showToast(`Expense ${id} deleted`, "warning");
   }
 
-  // ==========================================
-  // JOURNAL ENTRIES (DOUBLE-ENTRY BOOKKEEPING)
-  // ==========================================
-  function openNewJournalModal() {
-    populateJournalModalRows();
-    openModal('modal-new-journal');
-  }
-
-  function populateJournalModalRows() {
-    const tbody = document.getElementById('journal-lines-tbody');
-    if (!tbody) return;
-
-    tbody.innerHTML = `
-      <tr>${getJournalLineRowHtml()}</tr>
-      <tr>${getJournalLineRowHtml()}</tr>
-    `;
-
-    tbody.querySelectorAll('tr').forEach(attachJournalRowEvents);
-    calculateJournalTotals();
-
-    const dateInput = document.getElementById('je-date');
-    if (dateInput) dateInput.value = new Date().toISOString().slice(0, 10);
-  }
-
-  function getJournalLineRowHtml() {
-    const accOptions = state.master.chartOfAccounts.map(a => `
-      <option value="${a.code}">${a.code} - ${a.name} [${a.type}]</option>
-    `).join('');
-
-    return `
-      <td>
-        <select class="je-account-select form-select">
-          <option value="">-- Select Account --</option>
-          ${accOptions}
-        </select>
-      </td>
-      <td>
-        <input type="number" class="je-debit-input form-input text-right" value="0.00" step="0.01">
-      </td>
-      <td>
-        <input type="number" class="je-credit-input form-input text-right" value="0.00" step="0.01">
-      </td>
-      <td class="text-center">
-        <button type="button" class="btn btn-danger btn-sm" onclick="window.FCW.removeJournalRow(this)">✕</button>
-      </td>
-    `;
-  }
-
-  function attachJournalRowEvents(row) {
-    const debit = row.querySelector('.je-debit-input');
-    const credit = row.querySelector('.je-credit-input');
-
-    debit.addEventListener('input', () => {
-      if (parseFloat(debit.value) > 0) credit.value = "0.00";
-      calculateJournalTotals();
-    });
-
-    credit.addEventListener('input', () => {
-      if (parseFloat(credit.value) > 0) debit.value = "0.00";
-      calculateJournalTotals();
-    });
-  }
-
-  function calculateJournalTotals() {
-    let debits = 0;
-    let credits = 0;
-
-    document.querySelectorAll('#journal-lines-tbody tr').forEach(r => {
-      debits += parseFloat(r.querySelector('.je-debit-input').value) || 0;
-      credits += parseFloat(r.querySelector('.je-credit-input').value) || 0;
-    });
-
-    const debEl = document.getElementById('je-total-debit');
-    const credEl = document.getElementById('je-total-credit');
-    const badgeEl = document.getElementById('je-balance-indicator');
-
-    if (debEl) debEl.textContent = formatCurrency(debits);
-    if (credEl) credEl.textContent = formatCurrency(credits);
-
-    if (badgeEl) {
-      const diff = Math.abs(debits - credits);
-      if (diff < 0.01 && debits > 0) {
-        badgeEl.className = 'badge badge-success';
-        badgeEl.textContent = '✓ Balanced (Debits = Credits)';
-      } else {
-        badgeEl.className = 'badge badge-danger';
-        badgeEl.textContent = `Unbalanced (Difference: ${formatCurrency(diff)})`;
-      }
-    }
-  }
-
-  function submitNewJournal() {
-    const date = document.getElementById('je-date').value || new Date().toISOString().slice(0, 10);
-    const ref = document.getElementById('je-reference').value.trim();
-    const narration = document.getElementById('je-narration').value.trim();
-
-    if (!narration) return showToast("Narration / Explanation is required", "error");
-
-    const rows = document.querySelectorAll('#journal-lines-tbody tr');
-    const lines = [];
-    let totalDebit = 0;
-    let totalCredit = 0;
-
-    rows.forEach(r => {
-      const accSelect = r.querySelector('.je-account-select');
-      const debitInput = r.querySelector('.je-debit-input');
-      const creditInput = r.querySelector('.je-credit-input');
-
-      if (accSelect && accSelect.value) {
-        const accountCode = accSelect.value;
-        const debit = parseFloat(debitInput.value) || 0;
-        const credit = parseFloat(creditInput.value) || 0;
-
-        if (debit > 0 || credit > 0) {
-          lines.push({
-            accountCode,
-            accountName: getAccountNameByCode(accountCode),
-            debit,
-            credit
-          });
-          totalDebit += debit;
-          totalCredit += credit;
-        }
-      }
-    });
-
-    if (lines.length < 2) return showToast("At least two balancing lines required", "error");
-    if (Math.abs(totalDebit - totalCredit) > 0.01) {
-      return showToast(`Entry is unbalanced! Debits must equal Credits. Difference: ${formatCurrency(Math.abs(totalDebit - totalCredit))}`, "error");
-    }
-
-    const newJeId = `JE-2026-${String(state.journalEntries.length + 1).padStart(3, '0')}`;
-    state.journalEntries.unshift({
-      id: newJeId,
-      date,
-      reference: ref,
-      narration,
-      lines
-    });
-
-    lines.forEach(line => {
-      const acc = state.master.chartOfAccounts.find(a => a.code === line.accountCode);
-      if (acc) {
-        if (['Asset', 'Expense'].includes(acc.type)) {
-          acc.balance += (line.debit - line.credit);
-        } else {
-          acc.balance += (line.credit - line.debit);
-        }
-      }
-    });
-
-    saveData();
-    closeAllModals();
-    showToast(`Journal voucher ${newJeId} posted!`, "success");
-    refreshAllViews();
-  }
-
-  function deleteJournal(id) {
-    if (!confirm(`Delete journal entry ${id}?`)) return;
-    state.journalEntries = state.journalEntries.filter(j => j.id !== id);
-    saveData();
-    refreshAllViews();
-    showToast(`Journal ${id} deleted`, "warning");
-  }
-
   // Fund Transfers
   function openTransferFundsModal() {
     const fromSelect = document.getElementById('transfer-from-select');
@@ -3664,28 +3428,6 @@
     openNewExpenseModal,
     submitNewExpense,
     deleteExpense,
-
-    // Journal Operations
-    openNewJournalModal,
-    submitNewJournal,
-    deleteJournal,
-    addJournalRow: () => {
-      const tbody = document.getElementById('journal-lines-tbody');
-      if (!tbody) return;
-      const tr = document.createElement('tr');
-      tr.innerHTML = getJournalLineRowHtml();
-      tbody.appendChild(tr);
-      attachJournalRowEvents(tr);
-    },
-    removeJournalRow: (btn) => {
-      const row = btn.closest('tr');
-      if (document.querySelectorAll('#journal-lines-tbody tr').length > 2) {
-        row.remove();
-        calculateJournalTotals();
-      } else {
-        showToast("Journal entry requires at least 2 balancing lines", "warning");
-      }
-    },
 
     // Transfers
     openTransferFundsModal,
