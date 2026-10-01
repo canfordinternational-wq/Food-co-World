@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Co World | Accounting, Outlets & Financial Portal</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+</head>
+<body>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand-section">
+        <div id="sidebar-brand-slot">
+          <div class="brand-logo">FC</div>
+        </div>
+        <div class="brand-info">
+          <h2>Food Co World</h2>
+          <span>Accounting & Outlets (₹)</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <div class="nav-category">Main Overview</div>
+        <a class="nav-item active" data-view="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+          Dashboard
+        </a>
+
+        <div class="nav-category">Master Configuration</div>
+        <a class="nav-item" data-view="master">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          Master & Outlets
+          <span class="nav-badge">Master</span>
+        </a>
+
+        <div class="nav-category">Transactions & Operations</div>
+        <a class="nav-item" data-view="invoices">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Sales & Invoices
+        </a>
+        <a class="nav-item" data-view="expenses">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Expenses & Bills
+        </a>
+        <a class="nav-item" data-view="journals">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          Journal Entries
+        </a>
+        <a class="nav-item" data-view="banking">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 15h0M2 9.5h20"/></svg>
+          Cash & Banking
+        </a>
+
+        <div class="nav-category">Financial Intelligence</div>
+        <a class="nav-item" data-view="reports">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Financial Reports
+        </a>
+        <a class="nav-item" data-view="settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Settings & Logo
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-status">
+          <div class="status-dot"></div>
+          <span>Active Bookkeeping (₹)</span>
+        </div>
+        <span style="font-size: 11px; color: #a7f3d0;">v2.8</span>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-wrapper">
+      <!-- Topbar Header -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <div>
+            <h1 class="page-title" id="current-page-title">Executive Dashboard</h1>
+            <div class="page-subtitle">Food Co World Financial & Multi-Outlet Accounts System</div>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Multi-Outlet Separate Accounts Selector -->
+          <div class="outlet-selector-wrapper" title="Select Outlet / Branch to view and record accounts separately">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <select id="topbar-outlet-selector" class="outlet-selector">
+              <!-- Populated by JS -->
+            </select>
+          </div>
+
+          <button class="btn btn-secondary" onclick="window.FCW.openNewExpenseModal()">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+            Record Expense
+          </button>
+          <button class="btn btn-primary" onclick="window.FCW.openNewInvoiceModal()">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+            New Food Invoice
+          </button>
+        </div>
+      </header>
+
+      <div class="content-body">
+        
+        <!-- 1. DASHBOARD VIEW -->
+        <section id="view-dashboard" class="portal-view active">
+          <!-- KPI Cards in Rupees -->
+          <div class="kpi-grid">
+            <div class="kpi-card emerald">
+              <div class="kpi-header">
+                <span class="kpi-title">Food Revenue</span>
+                <div class="kpi-icon-wrapper">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpi-revenue">₹ 0.00</div>
+              <div class="kpi-subtitle"><span>↑ From Sales & Catering Invoices</span></div>
+            </div>
+
+            <div class="kpi-card rose">
+              <div class="kpi-header">
+                <span class="kpi-title">Culinary Expenses</span>
+                <div class="kpi-icon-wrapper" style="background:#fee2e2; color:#b91c1c;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpi-expenses">₹ 0.00</div>
+              <div class="kpi-subtitle"><span>Raw produce, staff & gas bills</span></div>
+            </div>
+
+            <div class="kpi-card gold">
+              <div class="kpi-header">
+                <span class="kpi-title">Net Operating Profit</span>
+                <div class="kpi-icon-wrapper" style="background:#fef3c7; color:#d97706;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><line x1="12" y1="6" x2="12" y2="18"/></svg>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpi-profit">₹ 0.00</div>
+              <div class="kpi-subtitle"><span>Outlet EBITDA margin</span></div>
+            </div>
+
+            <div class="kpi-card blue">
+              <div class="kpi-header">
+                <span class="kpi-title">Receivables (Pending)</span>
+                <div class="kpi-icon-wrapper" style="background:#e0f2fe; color:#0369a1;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpi-receivables">₹ 0.00</div>
+              <div class="kpi-subtitle"><span>Outstanding client invoices</span></div>
+            </div>
+
+            <div class="kpi-card emerald">
+              <div class="kpi-header">
+                <span class="kpi-title">Cash & Bank Liquidity</span>
+                <div class="kpi-icon-wrapper">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 15h0M2 9.5h20"/></svg>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpi-cash">₹ 0.00</div>
+              <div class="kpi-subtitle"><span>Bank balances & outlet registers</span></div>
+            </div>
+          </div>
+
+          <!-- Charts Grid -->
+          <div class="dashboard-grid">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                  Revenue vs Expenses Monthly Trend (in ₹)
+                </div>
+                <span class="badge badge-secondary">FY 2026-27</span>
+              </div>
+              <div class="chart-container">
+                <canvas id="revenueExpenseChart" class="chart-canvas"></canvas>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
+                  Culinary Expenses by Category
+                </div>
+                <span class="badge badge-secondary">Share %</span>
+              </div>
+              <div class="chart-container">
+                <canvas id="expenseBreakdownChart" class="chart-canvas"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Transactions Table -->
+          <div class="table-card">
+            <div class="table-toolbar">
+              <div style="font-weight: 600; font-size: 15px; color: var(--text-main);">
+                Recent Accounting Vouchers
+              </div>
+              <div style="display:flex; gap: 8px;">
+                <button class="btn btn-secondary btn-sm" onclick="window.FCW.switchView('invoices')">View Invoices</button>
+                <button class="btn btn-secondary btn-sm" onclick="window.FCW.switchView('expenses')">View Expenses</button>
+              </div>
+            </div>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Ref ID</th>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Client / Vendor</th>
+                    <th>Outlet / Branch</th>
+                    <th>Category</th>
+                    <th class="text-right">Amount (₹)</th>
+                    <th class="text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboard-recent-table">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. MASTER SECTION (SEPARATE OUTLETS & CUSTOMERS, FULL EDIT) -->
+        <section id="view-master" class="portal-view">
+          <div style="margin-bottom: 20px;">
+            <p style="color: var(--text-muted); font-size: 13.5px;">
+              Maintain your central accounting parameters. Add, edit, and configure internal production outlets/kitchens, clients, suppliers (with compulsory address), food catalogs, and chart of accounts.
+            </p>
+          </div>
+
+          <!-- Master Category Tabs -->
+          <div class="master-nav-tabs">
+            <button class="master-tab-btn active" data-tab="outlets">🏢 Outlets & Kitchens</button>
+            <button class="master-tab-btn" data-tab="customers">👥 Clients & Buyers</button>
+            <button class="master-tab-btn" data-tab="vendors">🚚 Suppliers & Vendors</button>
+            <button class="master-tab-btn" data-tab="expenseCats">Expense Categories</button>
+            <button class="master-tab-btn" data-tab="incomeCats">Income Categories</button>
+            <button class="master-tab-btn" data-tab="itemCats">Food Categories</button>
+            <button class="master-tab-btn" data-tab="items">Food Item Catalog</button>
+            <button class="master-tab-btn" data-tab="coa">Chart of Accounts</button>
+            <button class="master-tab-btn" data-tab="taxes">Tax Rates</button>
+            <button class="master-tab-btn" data-tab="payments">Payment Methods</button>
+          </div>
+
+          <!-- Search filter for Master -->
+          <div style="margin-bottom: 16px;">
+            <div class="search-input-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="master-search" class="search-input" placeholder="Search entries, codes, outlets, or records...">
+            </div>
+          </div>
+
+          <!-- Master Content Container -->
+          <div id="master-content-area">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </section>
+
+        <!-- 3. SALES & INVOICES VIEW (WITH EDIT & REASON TRACKING) -->
+        <section id="view-invoices" class="portal-view">
+          <div class="table-card">
+            <div class="table-toolbar">
+              <div class="search-input-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="invoices-search" class="search-input" placeholder="Search invoice #, client name, outlet...">
+              </div>
+              <button class="btn btn-primary" onclick="window.FCW.openNewInvoiceModal()">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+                Create Food Sales Invoice
+              </button>
+            </div>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Invoice #</th>
+                    <th>Date</th>
+                    <th>Billed Client</th>
+                    <th>Outlet / Branch</th>
+                    <th>Category</th>
+                    <th class="text-right">Subtotal (₹)</th>
+                    <th class="text-right">Food GST (₹)</th>
+                    <th class="text-right">Grand Total (₹)</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="invoices-table-body">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. EXPENSES & BILLS VIEW -->
+        <section id="view-expenses" class="portal-view">
+          <div class="table-card">
+            <div class="table-toolbar">
+              <div class="search-input-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="expenses-search" class="search-input" placeholder="Search expenses, supplier, outlet, category...">
+              </div>
+              <button class="btn btn-primary" onclick="window.FCW.openNewExpenseModal()">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+                Record Supplier Expense / Bill
+              </button>
+            </div>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Expense #</th>
+                    <th>Date</th>
+                    <th>Supplier / Payee</th>
+                    <th>Outlet / Branch</th>
+                    <th>Expense Category</th>
+                    <th>Ref Voucher</th>
+                    <th>Payment Mode</th>
+                    <th class="text-right">Total (₹)</th>
+                    <th class="text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="expenses-table-body">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. JOURNAL ENTRIES VIEW -->
+        <section id="view-journals" class="portal-view">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <p style="color: var(--text-muted); font-size: 13.5px;">
+              Double-entry bookkeeping audit trail in Indian Rupees. Every entry strictly balances Debits and Credits.
+            </p>
+            <button class="btn btn-primary" onclick="window.FCW.openNewJournalModal()">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+              Post Journal Voucher
+            </button>
+          </div>
+
+          <div id="journals-container">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </section>
+
+        <!-- 6. CASH & BANKING VIEW -->
+        <section id="view-banking" class="portal-view">
+          <div class="kpi-grid" style="grid-template-columns: 2fr 1fr; margin-bottom: 24px;">
+            <div class="card" style="display:flex; justify-content: space-between; align-items: center;">
+              <div>
+                <label class="form-label" style="margin-bottom: 6px;">Select Cash / Bank Account to View Ledger:</label>
+                <select id="banking-account-select" class="form-select" style="min-width: 320px; font-weight: 600; font-size: 14px;">
+                  <!-- Populated by JS -->
+                </select>
+              </div>
+              <button class="btn btn-primary" onclick="window.FCW.openTransferFundsModal()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                Transfer Funds
+              </button>
+            </div>
+
+            <div class="kpi-card emerald">
+              <div class="kpi-header">
+                <span class="kpi-title">Current Account Balance</span>
+                <div class="kpi-icon-wrapper">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 15h0M2 9.5h20"/></svg>
+                </div>
+              </div>
+              <div class="kpi-value" id="banking-current-balance">₹ 0.00</div>
+              <div class="kpi-subtitle"><span>Verified Bank Register</span></div>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-toolbar">
+              <div style="font-weight: 600; font-size: 15px; color: var(--text-main);">
+                Account Ledger History & Running Balance (₹)
+              </div>
+            </div>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Transaction Description</th>
+                    <th class="text-right" style="width: 150px;">Debit (+) (₹)</th>
+                    <th class="text-right" style="width: 150px;">Credit (-) (₹)</th>
+                    <th class="text-right" style="width: 170px;">Running Balance (₹)</th>
+                  </tr>
+                </thead>
+                <tbody id="banking-ledger-tbody">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. FINANCIAL REPORTS SECTION (MULTI-OUTLET SEPARATE ACCOUNTS) -->
+        <section id="view-reports" class="portal-view">
+          <div class="report-header-banner">
+            <div>
+              <h3>Food Co World Financial Statements & Reports</h3>
+              <p>Generate formal Profit & Loss statements, Balance Sheets, and Tax Audits filtered by outlet or consolidated.</p>
+            </div>
+
+            <div class="report-controls">
+              <select id="report-type-select">
+                <option value="pnl">Profit & Loss (Income Statement)</option>
+                <option value="balance-sheet">Balance Sheet (Financial Position)</option>
+                <option value="trial-balance">Trial Balance Audit</option>
+                <option value="cash-flow">Cash Flow Statement</option>
+                <option value="tax-report">Food VAT / GST Tax Summary</option>
+                <option value="expense-analysis">Culinary Cost Center Analysis</option>
+              </select>
+
+              <select id="report-range-select">
+                <option value="all">Reporting Period: FY 2026-27 (YTD)</option>
+                <option value="this-month">This Month</option>
+                <option value="last-month">Last Month</option>
+                <option value="quarter">This Quarter</option>
+              </select>
+
+              <button class="btn btn-secondary btn-sm" id="export-csv-btn">
+                <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                Export CSV
+              </button>
+
+              <button class="btn btn-primary btn-sm" id="print-report-btn">
+                <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0v3H7V4h6zm-8 8H4V9h12v3h-1v-2H5v2zm2 2h6v2H7v-2z" clip-rule="evenodd"/></svg>
+                Print / Save PDF
+              </button>
+            </div>
+          </div>
+
+          <!-- Financial Statement Output -->
+          <div id="financial-report-output">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </section>
+
+        <!-- 8. SETTINGS & DIRECT LOGO UPLOAD VIEW -->
+        <section id="view-settings" class="portal-view">
+          <!-- Brand Logo Management Card -->
+          <div class="card" style="margin-bottom: 24px;">
+            <div class="card-header">
+              <div class="card-title">Brand Logo & Visual Identity</div>
+            </div>
+            <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 12px;">
+              Upload your company logo directly from your computer. It will appear on your sidebar, topbar, printable invoices, and official financial reports.
+            </p>
+            <div class="logo-uploader-card">
+              <div class="logo-preview-box" id="settings-logo-preview">
+                <span style="font-size:11px; color:#94a3b8; font-weight:600;">No Logo</span>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <label class="btn btn-primary" style="cursor: pointer;">
+                  <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/></svg>
+                  Upload Brand Logo
+                  <input type="file" id="company-logo-file-input" accept="image/*" style="display:none;" onchange="window.FCW.uploadLogoFile(this.files[0])">
+                </label>
+                <button class="btn btn-secondary btn-sm" onclick="window.FCW.removeLogo()">Remove Logo</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Company Details Card -->
+          <div class="card" style="margin-bottom: 24px;">
+            <div class="card-header">
+              <div class="card-title">Company Profile & Legal Details</div>
+              <button class="btn btn-primary btn-sm" onclick="window.FCW.saveCompanySettings()">Save Profile</button>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">Company Legal Name</label>
+                <input type="text" id="company-name-input" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Currency Symbol</label>
+                <input type="text" id="company-currency-input" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">GSTIN / Tax ID Number</label>
+                <input type="text" id="company-tax-input" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Contact Phone</label>
+                <input type="text" id="company-phone-input" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Accounting Email</label>
+                <input type="email" id="company-email-input" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Central Headquarters Address</label>
+                <input type="text" id="company-address-input" class="form-input">
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Backup Card -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Data Backup, Restore & Reset</div>
+            </div>
+            <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 13.5px;">
+              Your multi-outlet accounting records, invoices, master categories, and ledger entries are securely saved in your browser's persistent storage.
+            </p>
+            <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+              <button class="btn btn-primary" onclick="window.FCW.backupJSON()">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                Export Complete Data Backup (.json)
+              </button>
+
+              <label class="btn btn-secondary" style="cursor: pointer;">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+                Restore from Backup JSON
+                <input type="file" id="restore-file-input" style="display:none;" accept=".json" onchange="window.FCW.restoreJSON(this.files[0])">
+              </label>
+
+              <button class="btn btn-danger" onclick="if(confirm('Reset all categories, outlets, and accounts back to Food Co World sample data?')) window.FCW.resetToDefaults(true);">
+                Reset to Default Sample Data
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODALS FOR MASTER CATEGORIES & ENTRIES (ADD & EDIT)  -->
+  <!-- ==================================================== -->
+
+  <!-- Modal: Add/Edit Outlet (Branches & Kitchens) -->
+  <div id="modal-add-outlet" class="modal-overlay">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h3 id="modal-outlet-title">Add Food Co Outlet / Branch</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group col-span-2">
+            <label class="form-label">Outlet / Branch Name <span class="req">*</span></label>
+            <input type="text" id="new-outlet-name" class="form-input" placeholder="e.g. Food Co World - Bandra Gourmet Outlet">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Outlet Code <span class="req">*</span></label>
+            <input type="text" id="new-outlet-code" class="form-input" placeholder="e.g. BGO-02 or CBK-01">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Facility Type</label>
+            <select id="new-outlet-type" class="form-select">
+              <option value="Base Production Kitchen">Base Production Kitchen</option>
+              <option value="Retail & Dine-in Kiosk">Retail & Dine-in Kiosk</option>
+              <option value="Delivery Hub & Cloud Kitchen">Delivery Hub & Cloud Kitchen</option>
+              <option value="Corporate Cafeteria Kiosk">Corporate Cafeteria Kiosk</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Branch Manager / Chef Incharge</label>
+            <input type="text" id="new-outlet-manager" class="form-input" placeholder="e.g. Chef Rahul Nair">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Contact Phone</label>
+            <input type="text" id="new-outlet-phone" class="form-input" placeholder="+91 98200 00000">
+          </div>
+          <div class="form-group col-span-2">
+            <label class="form-label">Branch Email</label>
+            <input type="email" id="new-outlet-email" class="form-input" placeholder="outlet@foodcoworld.com">
+          </div>
+          <div class="form-group col-span-2">
+            <label class="form-label">Physical Street Address</label>
+            <textarea id="new-outlet-address" class="form-textarea" placeholder="Complete address of kitchen/outlet premises..."></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
+        <button class="btn btn-primary" onclick="window.FCW.submitOutlet()">Save Outlet</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add/Edit Customer (Client with OPTIONAL address) -->
+  <div id="modal-add-customer" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-customer-title">Add Food Client / Customer</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group col-span-2">
+            <label class="form-label">Client / Restaurant / Buyer Name <span class="req">*</span></label>
+            <input type="text" id="new-cust-name" class="form-input" placeholder="e.g. The Grand Royal Bistro">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Client Type</label>
+            <select id="new-cust-type" class="form-select">
+              <option value="Wholesale Restaurant">Wholesale Restaurant</option>
+              <option value="Wholesale Cafe">Wholesale Cafe</option>
+              <option value="Corporate Catering">Corporate Catering</option>
+              <option value="Retail Distributor">Supermarket / Retail Chain</option>
+              <option value="Direct Consumer">Direct Retail / Event Client</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Credit Limit (₹)</label>
+            <input type="number" id="new-cust-limit" class="form-input" value="300000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Contact Person</label>
+            <input type="text" id="new-cust-contact" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="text" id="new-cust-phone" class="form-input">
+          </div>
+          <div class="form-group col-span-2">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="new-cust-email" class="form-input">
+          </div>
+          <div class="form-group col-span-2">
+            <label class="form-label">Delivery Address / Location <span class="opt">(Optional)</span></label>
+            <textarea id="new-cust-address" class="form-textarea" placeholder="Client delivery address (Optional - not compulsory)"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
+        <button class="btn btn-primary" onclick="window.FCW.submitCustomer()">Save Client</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add/Edit Supplier / Vendor (COMPULSORY ADDRESS) -->
+  <div id="modal-add-vendor" class="modal-overlay">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h3 id="modal-vendor-title">Add Food Supplier / Vendor</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group col-span-2">
+            <label class="form-label">Supplier / Farm / Company Name <span class="req">*</span></label>
+            <input type="text" id="new-ven-name" class="form-input" placeholder="e.g. Sahyadri Agro & Organic Farm">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Supply Category</label>
+            <select id="new-ven-cat" class="form-select">
+              <option value="Raw Ingredients">Raw Ingredients</option>
+              <option value="Packaging & Disposables">Packaging & Disposables</option>
+              <option value="Kitchen Utilities">Kitchen Utilities</option>
+              <option value="Kitchen Machinery">Kitchen Machinery</option>
+              <option value="Facility & Services">Facility & Services</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Supplier GSTIN / Tax ID</label>
+            <input type="text" id="new-ven-taxid" class="form-input" placeholder="27AABCS8910F1Z2">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Credit Terms (Days)</label>
+            <input type="number" id="new-ven-terms" class="form-input" value="30">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Contact Person</label>
+            <input type="text" id="new-ven-contact" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="text" id="new-ven-phone" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="new-ven-email" class="form-input">
+          </div>
+          <div class="form-group col-span-2" style="background:#fef2f2; padding:12px; border-radius:8px; border:1px solid #fecaca;">
+            <label class="form-label" style="color:#991b1b;">
+              Registered Supplier Address <span class="req">* (Compulsory for Food Safety Compliance)</span>
+            </label>
+            <textarea id="new-ven-address" class="form-textarea" placeholder="Complete registered farm / office address is mandatory..."></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
+        <button class="btn btn-primary" onclick="window.FCW.submitVendor()">Save Supplier</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add/Edit Expense Category -->
+  <div id="modal-add-expense-cat" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-exp-cat-title">Add Expense Category</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group col-span-2">
+            <label class="form-label">Category Name <span class="req">*</span></label>
+            <input type="text" id="new-exp-cat-name" class="form-input" placeholder="e.g. Organic Microgreens & Herbs">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ledger Code</label>
+            <input type="text" id="new-exp-cat-code" class="form-input" placeholder="5010">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Expense Classification</label>
+            <select id="new-exp-cat-type" class="form-select">
+              <option value="COGS">Cost of Goods Sold (COGS - Ingredients / Packaging)</option>
+              <option value="Operating">Operating Expense (Rent / Utilities / Wages)</option>
+            </select>
+          </div>
+          <div class="form-group col-span-2">
+            <label class="form-label">Description</label>
+            <textarea id="new-exp-cat-desc" class="form-textarea"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
+        <button class="btn btn-primary" onclick="window.FCW.submitExpenseCategory()">Save Category</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add/Edit Income Category -->
+  <div id="modal-add-income-cat" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-inc-cat-title">Add Revenue Category</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group col-span-2">
+            <label class="form-label">Income Category Name <span class="req">*</span></label>
+            <input type="text" id="new-inc-cat-name" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ledger Code</label>
+            <input type="text" id="new-inc-cat-code" class="form-input" placeholder="4010">
+          </div>
+          <div class="form-group col-span-2">
+            <label class="form-label">Description</label>
+            <textarea id="new-inc-cat-desc" class="form-textarea"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
+        <button class="btn btn-primary" onclick="window.FCW.submitIncomeCategory()">Save Income Category</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add/Edit Food Category -->
+  <div id="modal-add-item-cat" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-item-cat-title">Add Food Category</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group col-span-2">
+            <label class="form-label">Category Name <span class="req">*</span></label>
+            <input type="text" id="new-item-cat-name" class="form-input">
+          </div>
+          <div class="form-group col-span-2">
+            <label class="form-label">Culinary Description</label>
+            <textarea id="new-item-cat-desc" class="form-textarea"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
+        <button class="btn btn-primary" onclick="window.FCW.submitItemCategory()">Save Food Category</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add/Edit Food Item in Catalog -->
+  <div id="modal-add-item" class="modal-overlay">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h3 id="modal-item-title">Add Food Item to Catalog</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Food Item Name <span class="req">*</span></label>
+            <input type="text" id="new-item-name" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">SKU / Item Code <span class="req">*</span></label>
+            <input type="text" id="new-item-sku" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select id="new-item-category" class="form-select">
+              <option value="Bakery & Artisan Bread">Bakery & Artisan Bread</option>
+              <option value="Meat, Poultry & Seafood">Meat, Poultry & Seafood</option>
+              <option value="Dairy, Cheeses & Butter">Dairy, Cheeses & Butter</option>
+              <option value="Organic Produce & Greens">Organic Produce & Greens</option>
+              <option value="Grains, Spices & Dry Staples">Grains, Spices & Dry Staples</option>
+              <option value="Ready-to-Eat Gourmet Meals">Ready-to-Eat Gourmet Meals</option>
+              <option value="Specialty Beverages & Juices">Specialty Beverages & Juices</option>
+              <option value="Eco Packaging & Disposables">Eco Packaging & Disposables</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Measurement Unit</label>
+            <input type="text" id="new-item-unit" class="form-input" placeholder="Box, Crate, Kg, Tub, Case">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cost Price (₹)</label>
+            <input type="number" id="new-item-cost" class="form-input" step="0.01" value="0.00">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Selling Price (₹)</label>
+            <input type="number" id="new-item-sale" class="form-input" step="0.01" value="0.00">
+          </div>
+          <div class="form-group">
+            <label class="form-label">GST Tax Rate (%)</label>
+            <input type="number" id="new-item-tax" class="form-input" step="0.5" value="5">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Current Stock Qty</label>
+            <input type="number" id="new-item-stock" class="form-input" value="100">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
+        <button class="btn btn-primary" onclick="window.FCW.submitFoodItem()">Save Food Item</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add/Edit Account Head (COA) -->
+  <div id="modal-add-account" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-acc-title">Add Ledger Account Head</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Account Code <span class="req">*</span></label>
+            <input type="text" id="new-acc-code" class="form-input" placeholder="1040">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Account Name <span class="req">*</span></label>
+            <input type="text" id="new-acc-name" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Account Type</label>
+            <select id="new-acc-type" class="form-select">
+              <option value="Asset">Asset</option>
+              <option value="Liability">Liability</option>
+              <option value="Equity">Equity</option>
+              <option value="Revenue">Revenue / Income</option>
+              <option value="Expense">Expense</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Sub-Classification</label>
+            <input type="text" id="new-acc-subtype" class="form-input" placeholder="Current Asset or OpEx">
+          </div>
+          <div class="form-group col-span-2">
+            <label class="form-label">Opening Balance (₹)</label>
+            <input type="number" id="new-acc-balance" class="form-input" step="0.01" value="0.00">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
+        <button class="btn btn-primary" onclick="window.FCW.submitAccountHead()">Save Account</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add/Edit Tax Rate -->
+  <div id="modal-add-tax" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-tax-title">Add GST / Tax Rate</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group col-span-2">
+            <label class="form-label">Tax Name <span class="req">*</span></label>
+            <input type="text" id="new-tax-name" class="form-input" placeholder="e.g. Standard Food GST (5%)">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Rate (%) <span class="req">*</span></label>
+            <input type="number" id="new-tax-rate" class="form-input" step="0.1" value="5.0">
+          </div>
+          <div class="form-group col-span-2">
+            <label class="form-label">Description</label>
+            <textarea id="new-tax-desc" class="form-textarea"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
+        <button class="btn btn-primary" onclick="window.FCW.submitTaxRate()">Save Tax Rate</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add/Edit Payment Method -->
+  <div id="modal-add-payment" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-payment-title">Add Payment Method</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group col-span-2">
+            <label class="form-label">Payment Method Name <span class="req">*</span></label>
+            <input type="text" id="new-pay-name" class="form-input" placeholder="e.g. UPI QR Payment (PhonePe)">
+          </div>
+          <div class="form-group col-span-2">
+            <label class="form-label">Linked Account</label>
+            <select id="new-pay-account" class="form-select"></select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
+        <button class="btn btn-primary" onclick="window.FCW.submitPaymentMethod()">Save Payment Method</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Create / Edit Food Invoice (WITH REASON FIELD) -->
+  <div id="modal-new-invoice" class="modal-overlay">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h3 id="modal-invoice-title">Create Food Sales Invoice</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- Compulsory Edit Reason Container (Shown only when editing an existing invoice) -->
+        <div class="form-group col-span-2" id="inv-edit-reason-container" style="display:none; background:#fffbeb; padding:14px; border-radius:8px; border:1px solid #fef3c7; margin-bottom:16px;">
+          <label class="form-label" style="color:#92400e; font-weight:700;">
+            Reason for Modifying Invoice <span class="req">* (Mandatory for audit trail)</span>
+          </label>
+          <input type="text" id="inv-edit-reason" class="form-input" placeholder="Explain why this invoice is being modified (e.g. Dispatched 5 extra loaves as per kitchen receipt)...">
+        </div>
+
+        <div class="form-grid" style="margin-bottom: 20px;">
+          <div class="form-group">
+            <label class="form-label">Outlet / Kitchen Branch <span class="req">*</span></label>
+            <select id="inv-outlet-select" class="form-select"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Billed Client / Customer <span class="req">*</span></label>
+            <select id="inv-customer-select" class="form-select"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Revenue Stream / Category</label>
+            <select id="inv-category-select" class="form-select"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Payment Terms / Mode</label>
+            <select id="inv-payment-select" class="form-select"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Invoice Date</label>
+            <input type="date" id="inv-date" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Payment Due Date</label>
+            <input type="date" id="inv-due-date" class="form-input">
+          </div>
+          <div class="form-group col-span-2">
+            <label class="form-label">Internal Notes / Delivery Reference</label>
+            <input type="text" id="inv-notes" class="form-input" placeholder="e.g. Delivery via Refrigerated Van #2">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--text-main);">Invoice Food Items</h4>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="window.FCW.addInvoiceLineItem()">
+            + Add Another Food Item
+          </button>
+        </div>
+
+        <table class="line-items-table">
+          <thead>
+            <tr>
+              <th>Select Food Item from Catalog</th>
+              <th style="width: 90px;" class="text-center">Qty</th>
+              <th style="width: 130px;" class="text-right">Unit Rate (₹)</th>
+              <th style="width: 90px;" class="text-center">GST %</th>
+              <th style="width: 140px;" class="text-right">Total (₹)</th>
+              <th style="width: 40px;"></th>
+            </tr>
+          </thead>
+          <tbody id="invoice-line-items-tbody">
+            <!-- Dynamic rows -->
+          </tbody>
+        </table>
+
+        <!-- Totals in Rupees -->
+        <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+          <div style="width: 320px; font-size: 13.5px; background: #f8fafc; padding: 14px; border-radius: 8px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+              <span>Subtotal:</span>
+              <strong id="modal-inv-subtotal">₹ 0.00</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+              <span>Food GST / VAT:</span>
+              <strong id="modal-inv-tax">₹ 0.00</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 17px; font-weight: 800; color: var(--primary-dark); border-top: 1px solid var(--border); padding-top: 6px;">
+              <span>Invoice Total:</span>
+              <strong id="modal-inv-grand">₹ 0.00</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
+        <button class="btn btn-primary" onclick="window.FCW.submitInvoice()">Save & Post Invoice</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: New Expense / Bill (Tagged to Outlet) -->
+  <div id="modal-new-expense" class="modal-overlay">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h3>Record Culinary Expense / Supplier Bill</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Incurred At Outlet / Kitchen Branch <span class="req">*</span></label>
+            <select id="exp-outlet-select" class="form-select"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Food Supplier / Vendor</label>
+            <select id="exp-vendor-select" class="form-select"></select>
+          </div>
+          <div class="form-group col-span-2">
+            <label class="form-label">Expense Category <span class="req">*</span></label>
+            <select id="exp-category-select" class="form-select"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Expense Date</label>
+            <input type="date" id="exp-date" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Vendor Voucher / Invoice #</label>
+            <input type="text" id="exp-ref-no" class="form-input" placeholder="e.g. PO-8891">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Base Amount (₹) <span class="req">*</span></label>
+            <input type="number" id="exp-amount" class="form-input" step="0.01" placeholder="0.00">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Input GST Rate (%)</label>
+            <input type="number" id="exp-tax-rate" class="form-input" step="0.5" value="0.0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Paid From Account</label>
+            <select id="exp-pay-account" class="form-select"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Payment Mode</label>
+            <select id="exp-pay-method" class="form-select"></select>
+          </div>
+          <div class="form-group col-span-2">
+            <label class="form-label">Audit Notes & Narrative</label>
+            <textarea id="exp-notes" class="form-textarea" placeholder="Detail the purchase purpose, batch details, etc..."></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
+        <button class="btn btn-primary" onclick="window.FCW.submitNewExpense()">Record Expense</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Post Journal Voucher -->
+  <div id="modal-new-journal" class="modal-overlay">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h3>Post Double-Entry Journal Entry</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid" style="margin-bottom: 20px;">
+          <div class="form-group">
+            <label class="form-label">Voucher Date</label>
+            <input type="date" id="je-date" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Reference #</label>
+            <input type="text" id="je-reference" class="form-input" placeholder="e.g. JV-ADJ-09">
+          </div>
+          <div class="form-group col-span-2">
+            <label class="form-label">Narration / Explanation <span class="req">*</span></label>
+            <input type="text" id="je-narration" class="form-input" placeholder="Explain the transaction...">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--text-main);">Ledger Lines</h4>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="window.FCW.addJournalRow()">
+            + Add Line
+          </button>
+        </div>
+
+        <table class="line-items-table">
+          <thead>
+            <tr>
+              <th>Account Code & Title</th>
+              <th style="width: 160px;" class="text-right">Debit (₹)</th>
+              <th style="width: 160px;" class="text-right">Credit (₹)</th>
+              <th style="width: 40px;"></th>
+            </tr>
+          </thead>
+          <tbody id="journal-lines-tbody">
+            <!-- Dynamically populated -->
+          </tbody>
+          <tfoot>
+            <tr style="background-color: #f8fafc; font-weight: 700;">
+              <td class="text-right">Totals:</td>
+              <td class="text-right" id="je-total-debit">₹ 0.00</td>
+              <td class="text-right" id="je-total-credit">₹ 0.00</td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <div style="margin-top: 14px; display: flex; align-items: center; justify-content: space-between;">
+          <div id="je-balance-indicator" class="badge badge-warning">Checking balance...</div>
+          <span style="font-size: 12px; color: #64748b;">Debits must strictly equal Credits.</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
+        <button class="btn btn-primary" onclick="window.FCW.submitNewJournal()">Post Journal Entry</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Transfer Funds -->
+  <div id="modal-transfer-funds" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Internal Bank & Cash Transfer</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group col-span-2">
+            <label class="form-label">Transfer From Account</label>
+            <select id="transfer-from-select" class="form-select"></select>
+          </div>
+          <div class="form-group col-span-2">
+            <label class="form-label">Transfer To Account</label>
+            <select id="transfer-to-select" class="form-select"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Transfer Amount (₹) <span class="req">*</span></label>
+            <input type="number" id="transfer-amount" class="form-input" step="0.01" placeholder="0.00">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Transfer Date</label>
+            <input type="date" id="transfer-date" class="form-input">
+          </div>
+          <div class="form-group col-span-2">
+            <label class="form-label">Transfer Memo / Notes</label>
+            <input type="text" id="transfer-notes" class="form-input" placeholder="e.g. Replenish Bandra outlet cash register">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
+        <button class="btn btn-primary" onclick="window.FCW.submitFundTransfer()">Confirm Transfer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Printable Invoice Preview -->
+  <div id="modal-preview-invoice" class="modal-overlay">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h3>Invoice Details</h3>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-primary btn-sm" onclick="window.print()">Print / Save PDF</button>
+          <button class="modal-close-btn">&times;</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div id="printable-invoice-content" class="printable-invoice-view">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Logic Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
