@@ -1,10 +1,10 @@
 /* Food Co World Accounting Portal - Core Stylesheet */
 :root {
-  --primary: #065f46;
+  --primary: #064e3b;
   --primary-hover: #047857;
   --primary-light: #ecfdf5;
   --primary-dark: #064e3b;
-  --accent: #d97706;
+  --accent: #c77700;
   --accent-light: #fef3c7;
   
   --bg-app: #f8fafc;
@@ -81,7 +81,7 @@ body {
 .brand-logo {
   width: 42px;
   height: 42px;
-  background: linear-gradient(135deg, #10b981, #f59e0b);
+  background: linear-gradient(135deg, #10b981 0%, #047857 55%, #d97706 100%);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
@@ -1194,46 +1194,22 @@ canvas.chart-canvas {
 
 
 
-/* Food Co World — simple bookkeeping UI refresh */
-:root {
-  --fcw-green: #2ca01c;
-  --fcw-green-dark: #218313;
-  --fcw-bg: #f7f8fa;
-  --fcw-border: #e5e7eb;
+/* Spice-trading brand layer */
+.quick-actions-card {
+  background: linear-gradient(135deg, #064e3b 0%, #047857 68%, #a16207 100%);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  box-shadow: var(--shadow);
 }
-body { background: var(--fcw-bg); }
-.sidebar { background: #fff; border-right: 1px solid var(--fcw-border); box-shadow: none; }
-.brand-logo { background: var(--fcw-green) !important; color:#fff !important; }
-.brand-info h2 { color:#111827; font-size:16px; }
-.brand-info span { color:#6b7280; }
-.nav-category { color:#9ca3af; font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; margin-top:20px; }
-.nav-item { color:#4b5563; border-radius:8px; margin:2px 10px; padding:10px 12px; }
-.nav-item:hover { background:#f3f4f6; color:#111827; }
-.nav-item.active { background:#eaf7e8; color:var(--fcw-green-dark); font-weight:600; }
-.nav-badge { display:none; }
-.topbar { background:#fff; border-bottom:1px solid var(--fcw-border); box-shadow:none; }
-.page-title { font-size:22px; font-weight:700; color:#111827; }
-.page-subtitle { color:#6b7280; }
-.content-body { background:var(--fcw-bg); }
-.btn-primary { background:var(--fcw-green); border-color:var(--fcw-green); }
-.btn-primary:hover { background:var(--fcw-green-dark); border-color:var(--fcw-green-dark); }
-.quick-actions-bar { display:flex; justify-content:space-between; align-items:center; gap:20px; background:#fff; border:1px solid var(--fcw-border); border-radius:10px; padding:14px 16px; margin-bottom:20px; }
-.quick-actions-title { display:block; font-weight:700; color:#111827; font-size:14px; }
-.quick-actions-subtitle { display:block; color:#6b7280; font-size:12px; margin-top:3px; }
-.quick-actions-buttons { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
-.quick-action-btn { border:1px solid #d1d5db; background:#fff; color:#374151; border-radius:7px; padding:8px 12px; font-weight:600; cursor:pointer; font-size:12px; }
-.quick-action-btn:hover { border-color:#9ca3af; background:#f9fafb; }
-.quick-action-btn span { color:var(--fcw-green); font-size:16px; vertical-align:-1px; margin-right:3px; }
-.kpi-card, .card, .table-card, .report-header-banner { border:1px solid var(--fcw-border); box-shadow:0 1px 2px rgba(0,0,0,.03); }
-.kpi-card { background:#fff; }
-.table-card { background:#fff; }
-.data-table th { background:#f9fafb; color:#6b7280; font-size:11px; text-transform:uppercase; letter-spacing:.04em; }
-.data-table td { border-bottom:1px solid #f0f1f3; }
-.master-nav-tabs { background:#fff; border:1px solid var(--fcw-border); border-radius:10px; padding:5px; }
-.master-tab-btn { border-radius:6px; }
-.form-input, .form-select, .search-input { border-color:#d1d5db; border-radius:7px; }
-.sidebar-footer { border-top:1px solid var(--fcw-border); }
-@media (max-width: 900px) {
-  .quick-actions-bar { align-items:flex-start; flex-direction:column; }
-  .quick-actions-buttons { justify-content:flex-start; }
-}
+.quick-actions-title { font-size: 18px; font-weight: 800; }
+.quick-actions-subtitle { margin-top: 3px; color: #d1fae5; font-size: 12px; }
+.quick-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.quick-actions .btn-primary { background: #fff; color: #065f46; border-color: #fff; }
+.quick-actions .btn-secondary { background: rgba(255,255,255,.12); color: #fff; border-color: rgba(255,255,255,.28); }
+@media (max-width: 700px) { .quick-actions-card { align-items: flex-start; flex-direction: column; } }

@@ -179,8 +179,8 @@ const DEFAULT_ACCOUNTING_DATA = {
 
     // 4. Expense Categories
     expenseCategories: [
-      { id: "EXP-CAT-1", name: "Raw Ingredients & Fresh Produce", code: "5010", type: "COGS", description: "Vegetables, meat, poultry, dairy, flour, spices, oils" },
-      { id: "EXP-CAT-2", name: "Food Packaging & Disposables", code: "5020", type: "COGS", description: "Meal boxes, biodegradable trays, pouches, labels" },
+      { id: "EXP-CAT-1", name: "Spice Purchases & Raw Materials", code: "5010", type: "COGS", description: "Vegetables, meat, poultry, dairy, flour, spices, oils" },
+      { id: "EXP-CAT-2", name: "Spice Packaging & Packing", code: "5020", type: "COGS", description: "Meal boxes, biodegradable trays, pouches, labels" },
       { id: "EXP-CAT-3", name: "Food Spoilage & Wastage Write-Off", code: "5030", type: "COGS", description: "Expired or damaged kitchen stock write-offs" },
       { id: "EXP-CAT-4", name: "Kitchen & Outlet Staff Salaries", code: "6010", type: "Operating", description: "Head chefs, prep cooks, outlet managers, cashier crew" },
       { id: "EXP-CAT-5", name: "Kitchen Gas, Power & Utilities", code: "6020", type: "Operating", description: "Commercial piped gas (PNG), cold room electricity, water" },
@@ -193,36 +193,36 @@ const DEFAULT_ACCOUNTING_DATA = {
 
     // 5. Income / Revenue Categories
     incomeCategories: [
-      { id: "INC-CAT-1", name: "Wholesale Food Supply", code: "4010", description: "Bulk food & bakery deliveries to restaurants & hotels" },
+      { id: "INC-CAT-1", name: "Wholesale Spice Sales", code: "4010", description: "Bulk food & bakery deliveries to restaurants & hotels" },
       { id: "INC-CAT-2", name: "Retail & Outlet Counter Sales", code: "4020", description: "Direct retail sales at food kiosks and outlets" },
       { id: "INC-CAT-3", name: "Corporate Catering & Events", code: "4030", description: "Full-service food catering contracts and banquets" },
       { id: "INC-CAT-4", name: "Online Orders & Food Aggregators", code: "4040", description: "Zomato, Swiggy, and direct website delivery orders" },
-      { id: "INC-CAT-5", name: "Specialty Bakery & Confectionery", code: "4050", description: "Artisan sourdough, brioche, and celebration cakes" },
+      { id: "INC-CAT-5", name: "Private Label Spice Sales", code: "4050", description: "Artisan sourdough, brioche, and celebration cakes" },
       { id: "INC-CAT-6", name: "Culinary Consulting & Menu Licensing", code: "4090", description: "Institutional menu engineering and culinary workshops" }
     ],
 
     // 6. Food Product Categories
     itemCategories: [
-      { id: "ITEM-CAT-1", name: "Bakery & Artisan Bread", description: "Sourdough, baguettes, croissants, brioche, buns" },
-      { id: "ITEM-CAT-2", name: "Meat, Poultry & Seafood", description: "Marinated cuts, burger patties, smoked chicken, fish" },
-      { id: "ITEM-CAT-3", name: "Dairy, Cheeses & Butter", description: "Artisan cultured butter, paneer, mozzarella, cream" },
-      { id: "ITEM-CAT-4", name: "Organic Produce & Greens", description: "Hydroponic lettuce, microgreens, washed vegetables" },
-      { id: "ITEM-CAT-5", name: "Grains, Spices & Dry Staples", description: "Basmati rice, whole spices, pulses, specialty flours" },
-      { id: "ITEM-CAT-6", name: "Ready-to-Eat Gourmet Meals", description: "Sous-vide curry packs, frozen snack kits, meal trays" },
-      { id: "ITEM-CAT-7", name: "Specialty Beverages & Juices", description: "Cold-pressed citrus, kombucha, iced teas, syrups" },
-      { id: "ITEM-CAT-8", name: "Eco Packaging & Disposables", description: "Bagasse containers, wooden cutlery, kraft boxes" }
+      { id: "ITEM-CAT-1", name: "Whole Spices", description: "Sourdough, baguettes, croissants, brioche, buns" },
+      { id: "ITEM-CAT-2", name: "Ground Spices & Blends", description: "Marinated cuts, burger patties, smoked chicken, fish" },
+      { id: "ITEM-CAT-3", name: "Pepper & Premium Spices", description: "Artisan cultured butter, paneer, mozzarella, cream" },
+      { id: "ITEM-CAT-4", name: "Dried Herbs & Botanicals", description: "Hydroponic lettuce, microgreens, washed vegetables" },
+      { id: "ITEM-CAT-5", name: "Seeds, Whole Spices & Dry Goods", description: "Basmati rice, whole spices, pulses, specialty flours" },
+      { id: "ITEM-CAT-6", name: "Spice Blends & Seasonings", description: "Sous-vide curry packs, frozen snack kits, meal trays" },
+      { id: "ITEM-CAT-7", name: "Extracts, Oils & Oleoresins", description: "Cold-pressed citrus, kombucha, iced teas, syrups" },
+      { id: "ITEM-CAT-8", name: "Packaging Materials", description: "Bagasse containers, wooden cutlery, kraft boxes" }
     ],
 
     // 7. Food Catalog Items (Prices in INR ₹)
     items: [
-      { id: "ITM-01", name: "Artisan Sourdough Loaf (Box of 12)", sku: "SD-12B", category: "Bakery & Artisan Bread", unit: "Box", costPrice: 950.00, salePrice: 1900.00, taxRate: 5, stockQty: 180, reorderLevel: 30 },
-      { id: "ITM-02", name: "Gourmet Angus Beef/Mutton Patties (10kg)", sku: "BF-PAT-10", category: "Meat, Poultry & Seafood", unit: "Crate", costPrice: 4200.00, salePrice: 6800.00, taxRate: 5, stockQty: 45, reorderLevel: 15 },
-      { id: "ITM-03", name: "Organic Farm Fresh Milk (20L Can)", sku: "MLK-CR-20", category: "Dairy, Cheeses & Butter", unit: "Can", costPrice: 1100.00, salePrice: 1650.00, taxRate: 0, stockQty: 85, reorderLevel: 25 },
-      { id: "ITM-04", name: "Cold-Pressed Citrus Juice (Case of 24)", sku: "JUICE-24C", category: "Specialty Beverages & Juices", unit: "Case", costPrice: 1400.00, salePrice: 2800.00, taxRate: 12, stockQty: 110, reorderLevel: 20 },
-      { id: "ITM-05", name: "Sous-Vide Herb Salmon Meal Kit (Pack 10)", sku: "SAL-KIT-10", category: "Ready-to-Eat Gourmet Meals", unit: "Pack", costPrice: 3200.00, salePrice: 5800.00, taxRate: 5, stockQty: 40, reorderLevel: 10 },
-      { id: "ITM-06", name: "Artisan Cultured Truffle Butter (5kg Tub)", sku: "TRUF-BTR-5", category: "Dairy, Cheeses & Butter", unit: "Tub", costPrice: 2800.00, salePrice: 4900.00, taxRate: 12, stockQty: 35, reorderLevel: 8 },
-      { id: "ITM-07", name: "Microgreens & Herb Blend (5kg Box)", sku: "MCR-GRN-5", category: "Organic Produce & Greens", unit: "Box", costPrice: 1600.00, salePrice: 3100.00, taxRate: 0, stockQty: 50, reorderLevel: 15 },
-      { id: "ITM-08", name: "Eco Compostable Lunch Bowls (Pack 250)", sku: "ECO-BWL-250", category: "Eco Packaging & Disposables", unit: "Pack", costPrice: 1850.00, salePrice: 2950.00, taxRate: 18, stockQty: 140, reorderLevel: 30 }
+      { id: "ITM-01", name: "Tellicherry Black Pepper (25kg Bag)", sku: "SD-12B", category: "Whole Spices", unit: "Box", costPrice: 950.00, salePrice: 1900.00, taxRate: 5, stockQty: 180, reorderLevel: 30 },
+      { id: "ITM-02", name: "Malabar Black Pepper (25kg Bag)", sku: "BF-PAT-10", category: "Ground Spices & Blends", unit: "Crate", costPrice: 4200.00, salePrice: 6800.00, taxRate: 5, stockQty: 45, reorderLevel: 15 },
+      { id: "ITM-03", name: "Ceylon Cinnamon Quills (25kg Bag)", sku: "MLK-CR-20", category: "Pepper & Premium Spices", unit: "Can", costPrice: 1100.00, salePrice: 1650.00, taxRate: 0, stockQty: 85, reorderLevel: 25 },
+      { id: "ITM-04", name: "Premium Green Cardamom (5kg Carton)", sku: "JUICE-24C", category: "Extracts, Oils & Oleoresins", unit: "Case", costPrice: 1400.00, salePrice: 2800.00, taxRate: 12, stockQty: 110, reorderLevel: 20 },
+      { id: "ITM-05", name: "Kashmiri Red Chilli (25kg Bag)", sku: "SAL-KIT-10", category: "Spice Blends & Seasonings", unit: "Pack", costPrice: 3200.00, salePrice: 5800.00, taxRate: 5, stockQty: 40, reorderLevel: 10 },
+      { id: "ITM-06", name: "Turmeric Finger Premium (25kg Bag)", sku: "TRUF-BTR-5", category: "Pepper & Premium Spices", unit: "Tub", costPrice: 2800.00, salePrice: 4900.00, taxRate: 12, stockQty: 35, reorderLevel: 8 },
+      { id: "ITM-07", name: "Cumin Seeds Machine Cleaned (25kg Bag)", sku: "MCR-GRN-5", category: "Dried Herbs & Botanicals", unit: "Box", costPrice: 1600.00, salePrice: 3100.00, taxRate: 0, stockQty: 50, reorderLevel: 15 },
+      { id: "ITM-08", name: "Food-Grade Spice Packaging (Pack)", sku: "ECO-BWL-250", category: "Packaging Materials", unit: "Pack", costPrice: 1850.00, salePrice: 2950.00, taxRate: 18, stockQty: 140, reorderLevel: 30 }
     ],
 
     // 8. Chart of Accounts (COA)
@@ -246,7 +246,7 @@ const DEFAULT_ACCOUNTING_DATA = {
       { code: "3010", name: "Promoter & Partner Capital", type: "Equity", subType: "Equity", balance: 4000000.00 },
       { code: "3020", name: "Retained Earnings", type: "Equity", subType: "Equity", balance: 1160000.00 },
 
-      { code: "4010", name: "Wholesale Food Supply Revenue", type: "Revenue", subType: "Operating Revenue", balance: 0 },
+      { code: "4010", name: "Wholesale Spice Sales Revenue", type: "Revenue", subType: "Operating Revenue", balance: 0 },
       { code: "4020", name: "Retail & Outlet Counter Sales", type: "Revenue", subType: "Operating Revenue", balance: 0 },
       { code: "4030", name: "Corporate Catering Revenue", type: "Revenue", subType: "Operating Revenue", balance: 0 },
       { code: "4040", name: "Online Delivery Aggregator Revenue", type: "Revenue", subType: "Operating Revenue", balance: 0 },
@@ -293,10 +293,10 @@ const DEFAULT_ACCOUNTING_DATA = {
       outletName: "Food Co World - Central Base Kitchen (Andheri)",
       customerId: "CUST-201",
       customerName: "The Grand Royal Bistro & Lounge",
-      category: "Wholesale Food Supply",
+      category: "Wholesale Spice Sales",
       items: [
-        { itemId: "ITM-01", description: "Artisan Sourdough Loaf (Box of 12)", qty: 25, unitPrice: 1900.00, taxRate: 5, total: 49875.00 },
-        { itemId: "ITM-02", description: "Gourmet Angus Beef/Mutton Patties (10kg)", qty: 15, unitPrice: 6800.00, taxRate: 5, total: 107100.00 }
+        { itemId: "ITM-01", description: "Tellicherry Black Pepper (25kg Bag)", qty: 25, unitPrice: 1900.00, taxRate: 5, total: 49875.00 },
+        { itemId: "ITM-02", description: "Malabar Black Pepper (25kg Bag)", qty: 15, unitPrice: 6800.00, taxRate: 5, total: 107100.00 }
       ],
       subTotal: 149500.00,
       taxTotal: 7475.00,
@@ -316,8 +316,8 @@ const DEFAULT_ACCOUNTING_DATA = {
       customerName: "Pacific Luxury Hotels & Banquets",
       category: "Corporate Catering & Events",
       items: [
-        { itemId: "ITM-05", description: "Sous-Vide Herb Salmon Meal Kit (Pack 10)", qty: 30, unitPrice: 5800.00, taxRate: 5, total: 182700.00 },
-        { itemId: "ITM-04", description: "Cold-Pressed Citrus Juice (Case of 24)", qty: 20, unitPrice: 2800.00, taxRate: 12, total: 62720.00 }
+        { itemId: "ITM-05", description: "Kashmiri Red Chilli (25kg Bag)", qty: 30, unitPrice: 5800.00, taxRate: 5, total: 182700.00 },
+        { itemId: "ITM-04", description: "Premium Green Cardamom (5kg Carton)", qty: 20, unitPrice: 2800.00, taxRate: 12, total: 62720.00 }
       ],
       subTotal: 230000.00,
       taxTotal: 15420.00,
@@ -335,10 +335,10 @@ const DEFAULT_ACCOUNTING_DATA = {
       outletName: "Food Co World - Bandra Gourmet Outlet",
       customerId: "CUST-202",
       customerName: "Sunrise Bakery & Specialty Cafe",
-      category: "Specialty Bakery & Confectionery",
+      category: "Private Label Spice Sales",
       items: [
-        { itemId: "ITM-01", description: "Artisan Sourdough Loaf (Box of 12)", qty: 18, unitPrice: 1900.00, taxRate: 5, total: 35910.00 },
-        { itemId: "ITM-06", description: "Artisan Cultured Truffle Butter (5kg Tub)", qty: 6, unitPrice: 4900.00, taxRate: 12, total: 32928.00 }
+        { itemId: "ITM-01", description: "Tellicherry Black Pepper (25kg Bag)", qty: 18, unitPrice: 1900.00, taxRate: 5, total: 35910.00 },
+        { itemId: "ITM-06", description: "Turmeric Finger Premium (25kg Bag)", qty: 6, unitPrice: 4900.00, taxRate: 12, total: 32928.00 }
       ],
       subTotal: 63600.00,
       taxTotal: 5238.00,
@@ -358,8 +358,8 @@ const DEFAULT_ACCOUNTING_DATA = {
       customerName: "Nature Fresh Gourmet Supermarket Chain",
       category: "Retail & Outlet Counter Sales",
       items: [
-        { itemId: "ITM-04", description: "Cold-Pressed Citrus Juice (Case of 24)", qty: 45, unitPrice: 2800.00, taxRate: 12, total: 141120.00 },
-        { itemId: "ITM-07", description: "Microgreens & Herb Blend (5kg Box)", qty: 20, unitPrice: 3100.00, taxRate: 0, total: 62000.00 }
+        { itemId: "ITM-04", description: "Premium Green Cardamom (5kg Carton)", qty: 45, unitPrice: 2800.00, taxRate: 12, total: 141120.00 },
+        { itemId: "ITM-07", description: "Cumin Seeds Machine Cleaned (25kg Bag)", qty: 20, unitPrice: 3100.00, taxRate: 0, total: 62000.00 }
       ],
       subTotal: 188000.00,
       taxTotal: 15120.00,
@@ -380,7 +380,7 @@ const DEFAULT_ACCOUNTING_DATA = {
       outletName: "Food Co World - Central Base Kitchen (Andheri)",
       vendorId: "VEN-101",
       vendorName: "Sahyadri Agro & Organic Farm Produce",
-      category: "Raw Ingredients & Fresh Produce",
+      category: "Spice Purchases & Raw Materials",
       accountCode: "5010",
       paymentAccount: "1020",
       paymentMethod: "HDFC Primary Bank Account (NEFT / RTGS / IMPS)",
@@ -398,7 +398,7 @@ const DEFAULT_ACCOUNTING_DATA = {
       outletName: "Food Co World - Central Base Kitchen (Andheri)",
       vendorId: "VEN-102",
       vendorName: "Apex Food-Grade Eco Packaging Co.",
-      category: "Food Packaging & Disposables",
+      category: "Spice Packaging & Packing",
       accountCode: "5020",
       paymentAccount: "1020",
       paymentMethod: "HDFC Primary Bank Account (NEFT / RTGS / IMPS)",
@@ -416,7 +416,7 @@ const DEFAULT_ACCOUNTING_DATA = {
       outletName: "Food Co World - Central Base Kitchen (Andheri)",
       vendorId: "VEN-103",
       vendorName: "Konkan Marine Meats & Cold Supply",
-      category: "Raw Ingredients & Fresh Produce",
+      category: "Spice Purchases & Raw Materials",
       accountCode: "5010",
       paymentAccount: "1020",
       paymentMethod: "HDFC Primary Bank Account (NEFT / RTGS / IMPS)",
@@ -523,7 +523,7 @@ const DEFAULT_ACCOUNTING_DATA = {
       narration: "Record Invoice #INV-2026-001 Receipt from The Grand Royal Bistro",
       lines: [
         { accountCode: "1020", accountName: "HDFC Primary Current Bank Account", debit: 156975.00, credit: 0.00 },
-        { accountCode: "4010", accountName: "Wholesale Food Supply Revenue", debit: 0.00, credit: 149500.00 },
+        { accountCode: "4010", accountName: "Wholesale Spice Sales Revenue", debit: 0.00, credit: 149500.00 },
         { accountCode: "2100", accountName: "GST / Food Tax Payable", debit: 0.00, credit: 7475.00 }
       ]
     },
