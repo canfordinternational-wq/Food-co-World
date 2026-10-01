@@ -524,8 +524,8 @@
                 <input type="file" id="restore-file-input" style="display:none;" accept=".json" onchange="window.FCW.restoreJSON(this.files[0])">
               </label>
 
-              <button class="btn btn-danger" onclick="if(confirm('Reset all categories, outlets, and accounts back to Food Co World sample data?')) window.FCW.resetToDefaults(true);">
-                Reset to Default Sample Data
+              <button class="btn btn-danger" onclick="if(confirm('Reset the software to the clean starter setup? This will remove your saved accounting data.')) window.FCW.resetToDefaults(true);">
+                Reset to Clean Starter Setup
               </button>
             </div>
           </div>
@@ -601,7 +601,7 @@
         <div class="form-grid">
           <div class="form-group col-span-2">
             <label class="form-label">Client / Restaurant / Buyer Name <span class="req">*</span></label>
-            <input type="text" id="new-cust-name" class="form-input" placeholder="e.g. The Grand Royal Bistro">
+            <input type="text" id="new-cust-name" class="form-input" placeholder="e.g. Customer / Buyer Name">
           </div>
           <div class="form-group">
             <label class="form-label">Client Type</label>
@@ -653,7 +653,7 @@
         <div class="form-grid">
           <div class="form-group col-span-2">
             <label class="form-label">Supplier / Farm / Company Name <span class="req">*</span></label>
-            <input type="text" id="new-ven-name" class="form-input" placeholder="e.g. Sahyadri Agro & Organic Farm">
+            <input type="text" id="new-ven-name" class="form-input" placeholder="e.g. Supplier / Spice Trader Name">
           </div>
           <div class="form-group">
             <label class="form-label">Supply Category</label>

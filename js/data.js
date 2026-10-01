@@ -2,180 +2,28 @@
 const DEFAULT_ACCOUNTING_DATA = {
   company: {
     name: "Food Co World",
-    tagline: "Quality Food Manufacturing, Outlets, Catering & Distribution",
+    tagline: "Spice Trading & Accounting",
     currency: "₹",
     currencyCode: "INR",
-    taxNumber: "GSTIN: 27AABCF9823F1Z5",
+    taxNumber: "",
     fiscalYearStart: "2026-04-01",
-    address: "Central Culinary Hub, Unit 400, Food Logistics Park, Mumbai 400072",
-    phone: "+91 (022) 5550-FOOD / +91 98200 12345",
-    email: "accounts@foodcoworld.com",
-    website: "www.foodcoworld.com",
+    address: "",
+    phone: "",
+    email: "",
+    website: "",
     logo: "" // Base64 logo data
   },
   
   // Master Categories & Central Entities
   master: {
     // 1. Food Co World Internal Outlets & Kitchen Branches
-    outlets: [
-      {
-        id: "OUT-01",
-        code: "CBK-01",
-        name: "Food Co World - Central Base Kitchen (Andheri)",
-        type: "Base Production Kitchen",
-        manager: "Chef Rahul Nair",
-        phone: "+91 98201 11223",
-        email: "cbk.andheri@foodcoworld.com",
-        address: "Plot 12, MIDC Industrial Area, Andheri East, Mumbai 400093",
-        status: "Active"
-      },
-      {
-        id: "OUT-02",
-        code: "BGO-02",
-        name: "Food Co World - Bandra Gourmet Outlet",
-        type: "Retail & Dine-in Kiosk",
-        manager: "Pooja Sharma",
-        phone: "+91 98202 22334",
-        email: "bandra.store@foodcoworld.com",
-        address: "Shop 4, Hill Road, Near Mehboob Studio, Bandra West, Mumbai 400050",
-        status: "Active"
-      },
-      {
-        id: "OUT-03",
-        code: "BKC-03",
-        name: "Food Co World - BKC Cloud Kitchen Hub",
-        type: "Delivery Hub & Cloud Kitchen",
-        manager: "Sameer Joshi",
-        phone: "+91 98203 33445",
-        email: "bkc.kitchen@foodcoworld.com",
-        address: "Tower 2, Trade Centre Basement, G-Block BKC, Mumbai 400051",
-        status: "Active"
-      },
-      {
-        id: "OUT-04",
-        code: "PTK-04",
-        name: "Food Co World - Powai Tech Park Kiosk",
-        type: "Corporate Cafeteria Kiosk",
-        manager: "Ananya Roy",
-        phone: "+91 98204 44556",
-        email: "powai.kiosk@foodcoworld.com",
-        address: "Hiranandani Business Park, Technology Street, Powai, Mumbai 400076",
-        status: "Active"
-      }
-    ],
+    outlets: [],
 
     // 2. Customers / External Food Clients & Outlets Billed
-    customers: [
-      {
-        id: "CUST-201",
-        name: "The Grand Royal Bistro & Lounge",
-        type: "Wholesale Restaurant",
-        contact: "Chef Antoine Laurent",
-        phone: "+91 98111 22334",
-        email: "chef@grandroyalbistro.in",
-        address: "Colaba Causeway, Near Gateway of India, Mumbai 400001", // Optional
-        creditLimit: 300000
-      },
-      {
-        id: "CUST-202",
-        name: "Sunrise Bakery & Specialty Cafe",
-        type: "Wholesale Cafe",
-        contact: "Sarah Jenkins",
-        phone: "+91 98222 33445",
-        email: "sarah@sunrisecafe.in",
-        address: "Juhu Tara Road, Juhu, Mumbai 400049", // Optional
-        creditLimit: 150000
-      },
-      {
-        id: "CUST-203",
-        name: "Pacific Luxury Hotels & Banquets",
-        type: "Corporate Catering",
-        contact: "Liam Thorne (Procurement Head)",
-        phone: "+91 98333 44556",
-        email: "procurement@pacifichotels.in",
-        address: "Marine Drive Promenade, Nariman Point, Mumbai 400021", // Optional
-        creditLimit: 750000
-      },
-      {
-        id: "CUST-204",
-        name: "Nature Fresh Gourmet Supermarket Chain",
-        type: "Retail Distributor",
-        contact: "Deborah Cruz",
-        phone: "+91 98444 55667",
-        email: "dcruz@naturefreshmarts.in",
-        address: "Linking Road, Santacruz West, Mumbai", // Optional
-        creditLimit: 500000
-      },
-      {
-        id: "CUST-205",
-        name: "Apex Tech Campus Cafeteria Services",
-        type: "Corporate Catering",
-        contact: "Robert Henderson",
-        phone: "+91 98555 66778",
-        email: "admin@apextechcampus.in",
-        address: "", // Optional left empty intentionally
-        creditLimit: 400000
-      }
-    ],
+    customers: [],
 
     // 3. Suppliers / Food Vendors (Mandatory Registered Address)
-    vendors: [
-      {
-        id: "VEN-101",
-        name: "Sahyadri Agro & Organic Farm Produce",
-        category: "Raw Ingredients",
-        contact: "Marcus Vance",
-        phone: "+91 98901 12345",
-        email: "orders@sahyadriagro.in",
-        address: "Gat No. 142, Dindori Agro Processing Belt, Nashik, Maharashtra 422202", // Compulsory
-        creditDays: 14,
-        taxId: "27AABCS8910F1Z2"
-      },
-      {
-        id: "VEN-102",
-        name: "Apex Food-Grade Eco Packaging Co.",
-        category: "Packaging & Disposables",
-        contact: "Elena Rostova",
-        phone: "+91 98902 23456",
-        email: "sales@apexpackaging.in",
-        address: "Shed 44, Waluj MIDC Industrial Area, Aurangabad, Maharashtra 431136", // Compulsory
-        creditDays: 30,
-        taxId: "27AAACP7734E1Z8"
-      },
-      {
-        id: "VEN-103",
-        name: "Konkan Marine Meats & Cold Supply",
-        category: "Raw Ingredients",
-        contact: "Captain Dave Kelly",
-        phone: "+91 98903 34567",
-        email: "orders@konkanmarine.in",
-        address: "Sassoon Docks Fish Harbor Yard 18, Colaba, Mumbai 400005", // Compulsory
-        creditDays: 7,
-        taxId: "27AABCK2309C1Z1"
-      },
-      {
-        id: "VEN-104",
-        name: "Mahanagar Gas Commercial Energy Ltd.",
-        category: "Kitchen Utilities",
-        contact: "Commercial Billing Desk",
-        phone: "+91 98904 45678",
-        email: "commercial@mahanagargas.in",
-        address: "MGL House, Block G-33, Bandra-Kurla Complex, Bandra East, Mumbai 400051", // Compulsory
-        creditDays: 30,
-        taxId: "27AAACM1002B1Z6"
-      },
-      {
-        id: "VEN-105",
-        name: "Deccan Flour Mills & Spice Hub",
-        category: "Raw Ingredients",
-        contact: "Samir Patel",
-        phone: "+91 98905 56789",
-        email: "samir@deccanflourmills.in",
-        address: "Plot 88, Sector 19, APMC Grain Market, Vashi, Navi Mumbai 400705", // Compulsory
-        creditDays: 21,
-        taxId: "27AABCD5521A1Z4"
-      }
-    ],
+    vendors: [],
 
     // 4. Expense Categories
     expenseCategories: [
@@ -203,48 +51,39 @@ const DEFAULT_ACCOUNTING_DATA = {
 
     // 6. Food Product Categories
     itemCategories: [
-      { id: "ITEM-CAT-1", name: "Whole Spices", description: "Sourdough, baguettes, croissants, brioche, buns" },
-      { id: "ITEM-CAT-2", name: "Ground Spices & Blends", description: "Marinated cuts, burger patties, smoked chicken, fish" },
-      { id: "ITEM-CAT-3", name: "Pepper & Premium Spices", description: "Artisan cultured butter, paneer, mozzarella, cream" },
-      { id: "ITEM-CAT-4", name: "Dried Herbs & Botanicals", description: "Hydroponic lettuce, microgreens, washed vegetables" },
-      { id: "ITEM-CAT-5", name: "Seeds, Whole Spices & Dry Goods", description: "Basmati rice, whole spices, pulses, specialty flours" },
-      { id: "ITEM-CAT-6", name: "Spice Blends & Seasonings", description: "Sous-vide curry packs, frozen snack kits, meal trays" },
-      { id: "ITEM-CAT-7", name: "Extracts, Oils & Oleoresins", description: "Cold-pressed citrus, kombucha, iced teas, syrups" },
-      { id: "ITEM-CAT-8", name: "Packaging Materials", description: "Bagasse containers, wooden cutlery, kraft boxes" }
+      { id: "ITEM-CAT-1", name: "Whole Spices", description: "Whole spices such as pepper, cumin, coriander and fennel" },
+      { id: "ITEM-CAT-2", name: "Ground Spices & Blends", description: "Ground spices, masalas and custom spice blends" },
+      { id: "ITEM-CAT-3", name: "Pepper & Premium Spices", description: "Premium pepper, cardamom, cinnamon and other high-value spices" },
+      { id: "ITEM-CAT-4", name: "Dried Herbs & Botanicals", description: "Dried herbs, leaves and botanical ingredients" },
+      { id: "ITEM-CAT-5", name: "Seeds, Whole Spices & Dry Goods", description: "Seeds, dry spices and other bulk trading goods" },
+      { id: "ITEM-CAT-6", name: "Spice Blends & Seasonings", description: "Blended spices, seasonings and private-label mixes" },
+      { id: "ITEM-CAT-7", name: "Extracts, Oils & Oleoresins", description: "Spice extracts, oils and oleoresins" },
+      { id: "ITEM-CAT-8", name: "Packaging Materials", description: "Food-grade spice bags, pouches, labels and cartons" }
     ],
 
     // 7. Food Catalog Items (Prices in INR ₹)
-    items: [
-      { id: "ITM-01", name: "Tellicherry Black Pepper (25kg Bag)", sku: "SD-12B", category: "Whole Spices", unit: "Box", costPrice: 950.00, salePrice: 1900.00, taxRate: 5, stockQty: 180, reorderLevel: 30 },
-      { id: "ITM-02", name: "Malabar Black Pepper (25kg Bag)", sku: "BF-PAT-10", category: "Ground Spices & Blends", unit: "Crate", costPrice: 4200.00, salePrice: 6800.00, taxRate: 5, stockQty: 45, reorderLevel: 15 },
-      { id: "ITM-03", name: "Ceylon Cinnamon Quills (25kg Bag)", sku: "MLK-CR-20", category: "Pepper & Premium Spices", unit: "Can", costPrice: 1100.00, salePrice: 1650.00, taxRate: 0, stockQty: 85, reorderLevel: 25 },
-      { id: "ITM-04", name: "Premium Green Cardamom (5kg Carton)", sku: "JUICE-24C", category: "Extracts, Oils & Oleoresins", unit: "Case", costPrice: 1400.00, salePrice: 2800.00, taxRate: 12, stockQty: 110, reorderLevel: 20 },
-      { id: "ITM-05", name: "Kashmiri Red Chilli (25kg Bag)", sku: "SAL-KIT-10", category: "Spice Blends & Seasonings", unit: "Pack", costPrice: 3200.00, salePrice: 5800.00, taxRate: 5, stockQty: 40, reorderLevel: 10 },
-      { id: "ITM-06", name: "Turmeric Finger Premium (25kg Bag)", sku: "TRUF-BTR-5", category: "Pepper & Premium Spices", unit: "Tub", costPrice: 2800.00, salePrice: 4900.00, taxRate: 12, stockQty: 35, reorderLevel: 8 },
-      { id: "ITM-07", name: "Cumin Seeds Machine Cleaned (25kg Bag)", sku: "MCR-GRN-5", category: "Dried Herbs & Botanicals", unit: "Box", costPrice: 1600.00, salePrice: 3100.00, taxRate: 0, stockQty: 50, reorderLevel: 15 },
-      { id: "ITM-08", name: "Food-Grade Spice Packaging (Pack)", sku: "ECO-BWL-250", category: "Packaging Materials", unit: "Pack", costPrice: 1850.00, salePrice: 2950.00, taxRate: 18, stockQty: 140, reorderLevel: 30 }
-    ],
+    items: [],
 
     // 8. Chart of Accounts (COA)
     chartOfAccounts: [
-      { code: "1010", name: "Cash on Hand (Outlet Cash Registers)", type: "Asset", subType: "Current Asset", balance: 85000.00 },
-      { code: "1020", name: "HDFC Primary Current Bank Account", type: "Asset", subType: "Current Asset", balance: 1450000.00 },
-      { code: "1030", name: "Petty Cash (Outlet Emergency)", type: "Asset", subType: "Current Asset", balance: 35000.00 },
-      { code: "1100", name: "Accounts Receivable (Trade Debtors)", type: "Asset", subType: "Current Asset", balance: 345000.00 },
-      { code: "1200", name: "Inventory - Raw Ingredients", type: "Asset", subType: "Current Asset", balance: 480000.00 },
-      { code: "1210", name: "Inventory - Finished Food Products", type: "Asset", subType: "Current Asset", balance: 290000.00 },
-      { code: "1220", name: "Inventory - Packaging Materials", type: "Asset", subType: "Current Asset", balance: 120000.00 },
-      { code: "1500", name: "Commercial Kitchen Equipment", type: "Asset", subType: "Fixed Asset", balance: 2800000.00 },
-      { code: "1510", name: "Refrigerated Delivery Vans", type: "Asset", subType: "Fixed Asset", balance: 1600000.00 },
-      { code: "1590", name: "Accumulated Depreciation", type: "Asset", subType: "Fixed Asset", balance: -450000.00 },
+      { code: "1010", name: "Cash on Hand (Outlet Cash Registers)", type: "Asset", subType: "Current Asset", balance: 0 },
+      { code: "1020", name: "HDFC Primary Current Bank Account", type: "Asset", subType: "Current Asset", balance: 0 },
+      { code: "1030", name: "Petty Cash (Outlet Emergency)", type: "Asset", subType: "Current Asset", balance: 0 },
+      { code: "1100", name: "Accounts Receivable (Trade Debtors)", type: "Asset", subType: "Current Asset", balance: 0 },
+      { code: "1200", name: "Inventory - Raw Ingredients", type: "Asset", subType: "Current Asset", balance: 0 },
+      { code: "1210", name: "Inventory - Finished Food Products", type: "Asset", subType: "Current Asset", balance: 0 },
+      { code: "1220", name: "Inventory - Packaging Materials", type: "Asset", subType: "Current Asset", balance: 0 },
+      { code: "1500", name: "Commercial Kitchen Equipment", type: "Asset", subType: "Fixed Asset", balance: 0 },
+      { code: "1510", name: "Refrigerated Delivery Vans", type: "Asset", subType: "Fixed Asset", balance: 0 },
+      { code: "1590", name: "Accumulated Depreciation", type: "Asset", subType: "Fixed Asset", balance: 0 },
 
-      { code: "2010", name: "Accounts Payable (Trade Creditors)", type: "Liability", subType: "Current Liability", balance: 320000.00 },
-      { code: "2100", name: "GST / Food Tax Payable", type: "Liability", subType: "Current Liability", balance: 85000.00 },
-      { code: "2200", name: "Accrued Outlet Payroll", type: "Liability", subType: "Current Liability", balance: 240000.00 },
-      { code: "2500", name: "Commercial Kitchen Machinery Loan", type: "Liability", subType: "Long-term Liability", balance: 950000.00 },
+      { code: "2010", name: "Accounts Payable (Trade Creditors)", type: "Liability", subType: "Current Liability", balance: 0 },
+      { code: "2100", name: "GST / Food Tax Payable", type: "Liability", subType: "Current Liability", balance: 0 },
+      { code: "2200", name: "Accrued Outlet Payroll", type: "Liability", subType: "Current Liability", balance: 0 },
+      { code: "2500", name: "Commercial Kitchen Machinery Loan", type: "Liability", subType: "Long-term Liability", balance: 0 },
 
-      { code: "3010", name: "Promoter & Partner Capital", type: "Equity", subType: "Equity", balance: 4000000.00 },
-      { code: "3020", name: "Retained Earnings", type: "Equity", subType: "Equity", balance: 1160000.00 },
+      { code: "3010", name: "Promoter & Partner Capital", type: "Equity", subType: "Equity", balance: 0 },
+      { code: "3020", name: "Retained Earnings", type: "Equity", subType: "Equity", balance: 0 },
 
       { code: "4010", name: "Wholesale Spice Sales Revenue", type: "Revenue", subType: "Operating Revenue", balance: 0 },
       { code: "4020", name: "Retail & Outlet Counter Sales", type: "Revenue", subType: "Operating Revenue", balance: 0 },
@@ -284,261 +123,13 @@ const DEFAULT_ACCOUNTING_DATA = {
   },
 
   // Transactions with Outlet Associations & Edit Tracking
-  invoices: [
-    {
-      id: "INV-2026-001",
-      date: "2026-09-15",
-      dueDate: "2026-09-30",
-      outletId: "OUT-01",
-      outletName: "Food Co World - Central Base Kitchen (Andheri)",
-      customerId: "CUST-201",
-      customerName: "The Grand Royal Bistro & Lounge",
-      category: "Wholesale Spice Sales",
-      items: [
-        { itemId: "ITM-01", description: "Tellicherry Black Pepper (25kg Bag)", qty: 25, unitPrice: 1900.00, taxRate: 5, total: 49875.00 },
-        { itemId: "ITM-02", description: "Malabar Black Pepper (25kg Bag)", qty: 15, unitPrice: 6800.00, taxRate: 5, total: 107100.00 }
-      ],
-      subTotal: 149500.00,
-      taxTotal: 7475.00,
-      grandTotal: 156975.00,
-      status: "Paid",
-      paymentMethod: "HDFC Primary Bank Account (NEFT / RTGS / IMPS)",
-      notes: "Weekly recurring supply delivery dispatched from Andheri Central Kitchen.",
-      editHistory: []
-    },
-    {
-      id: "INV-2026-002",
-      date: "2026-09-20",
-      dueDate: "2026-10-05",
-      outletId: "OUT-03",
-      outletName: "Food Co World - BKC Cloud Kitchen Hub",
-      customerId: "CUST-203",
-      customerName: "Pacific Luxury Hotels & Banquets",
-      category: "Corporate Catering & Events",
-      items: [
-        { itemId: "ITM-05", description: "Kashmiri Red Chilli (25kg Bag)", qty: 30, unitPrice: 5800.00, taxRate: 5, total: 182700.00 },
-        { itemId: "ITM-04", description: "Premium Green Cardamom (5kg Carton)", qty: 20, unitPrice: 2800.00, taxRate: 12, total: 62720.00 }
-      ],
-      subTotal: 230000.00,
-      taxTotal: 15420.00,
-      grandTotal: 245420.00,
-      status: "Pending",
-      paymentMethod: "Net 30 Days Credit Term",
-      notes: "Annual Culinary Gala Catering. Due in 15 days.",
-      editHistory: []
-    },
-    {
-      id: "INV-2026-003",
-      date: "2026-09-24",
-      dueDate: "2026-10-08",
-      outletId: "OUT-02",
-      outletName: "Food Co World - Bandra Gourmet Outlet",
-      customerId: "CUST-202",
-      customerName: "Sunrise Bakery & Specialty Cafe",
-      category: "Private Label Spice Sales",
-      items: [
-        { itemId: "ITM-01", description: "Tellicherry Black Pepper (25kg Bag)", qty: 18, unitPrice: 1900.00, taxRate: 5, total: 35910.00 },
-        { itemId: "ITM-06", description: "Turmeric Finger Premium (25kg Bag)", qty: 6, unitPrice: 4900.00, taxRate: 12, total: 32928.00 }
-      ],
-      subTotal: 63600.00,
-      taxTotal: 5238.00,
-      grandTotal: 68838.00,
-      status: "Paid",
-      paymentMethod: "UPI QR Code (GPay / PhonePe / Paytm)",
-      notes: "Immediate UPI settlement at Bandra retail counter.",
-      editHistory: []
-    },
-    {
-      id: "INV-2026-004",
-      date: "2026-09-28",
-      dueDate: "2026-10-12",
-      outletId: "OUT-04",
-      outletName: "Food Co World - Powai Tech Park Kiosk",
-      customerId: "CUST-204",
-      customerName: "Nature Fresh Gourmet Supermarket Chain",
-      category: "Retail & Outlet Counter Sales",
-      items: [
-        { itemId: "ITM-04", description: "Premium Green Cardamom (5kg Carton)", qty: 45, unitPrice: 2800.00, taxRate: 12, total: 141120.00 },
-        { itemId: "ITM-07", description: "Cumin Seeds Machine Cleaned (25kg Bag)", qty: 20, unitPrice: 3100.00, taxRate: 0, total: 62000.00 }
-      ],
-      subTotal: 188000.00,
-      taxTotal: 15120.00,
-      grandTotal: 203120.00,
-      status: "Pending",
-      paymentMethod: "Net 30 Days Credit Term",
-      notes: "Delivered to Powai distribution point.",
-      editHistory: []
-    }
-  ],
+  invoices: [],
 
   // Expenses with Outlet Tagging
-  expenses: [
-    {
-      id: "EXP-2026-001",
-      date: "2026-09-12",
-      outletId: "OUT-01",
-      outletName: "Food Co World - Central Base Kitchen (Andheri)",
-      vendorId: "VEN-101",
-      vendorName: "Sahyadri Agro & Organic Farm Produce",
-      category: "Spice Purchases & Raw Materials",
-      accountCode: "5010",
-      paymentAccount: "1020",
-      paymentMethod: "HDFC Primary Bank Account (NEFT / RTGS / IMPS)",
-      referenceNo: "PO-77102",
-      amount: 142000.00,
-      taxAmount: 7100.00,
-      total: 149100.00,
-      status: "Paid",
-      notes: "Bulk organic vegetables, culinary herbs, and microgreens batch."
-    },
-    {
-      id: "EXP-2026-002",
-      date: "2026-09-16",
-      outletId: "OUT-01",
-      outletName: "Food Co World - Central Base Kitchen (Andheri)",
-      vendorId: "VEN-102",
-      vendorName: "Apex Food-Grade Eco Packaging Co.",
-      category: "Spice Packaging & Packing",
-      accountCode: "5020",
-      paymentAccount: "1020",
-      paymentMethod: "HDFC Primary Bank Account (NEFT / RTGS / IMPS)",
-      referenceNo: "INV-AP-8921",
-      amount: 68000.00,
-      taxAmount: 12240.00,
-      total: 80240.00,
-      status: "Paid",
-      notes: "Eco-friendly takeaway meal containers and compostable trays."
-    },
-    {
-      id: "EXP-2026-003",
-      date: "2026-09-22",
-      outletId: "OUT-01",
-      outletName: "Food Co World - Central Base Kitchen (Andheri)",
-      vendorId: "VEN-103",
-      vendorName: "Konkan Marine Meats & Cold Supply",
-      category: "Spice Purchases & Raw Materials",
-      accountCode: "5010",
-      paymentAccount: "1020",
-      paymentMethod: "HDFC Primary Bank Account (NEFT / RTGS / IMPS)",
-      referenceNo: "KM-9021",
-      amount: 128000.00,
-      taxAmount: 6400.00,
-      total: 134400.00,
-      status: "Paid",
-      notes: "Fresh Atlantic salmon, marinated mutton cuts, organic chicken."
-    },
-    {
-      id: "EXP-2026-004",
-      date: "2026-09-25",
-      outletId: "OUT-02",
-      outletName: "Food Co World - Bandra Gourmet Outlet",
-      vendorId: "VEN-104",
-      vendorName: "Mahanagar Gas Commercial Energy Ltd.",
-      category: "Kitchen Gas, Power & Utilities",
-      accountCode: "6020",
-      paymentAccount: "1020",
-      paymentMethod: "HDFC Primary Bank Account (NEFT / RTGS / IMPS)",
-      referenceNo: "MGL-SEP-26",
-      amount: 38500.00,
-      taxAmount: 0.00,
-      total: 38500.00,
-      status: "Paid",
-      notes: "Commercial gas pipeline meter bill for Bandra outlet ovens."
-    },
-    {
-      id: "EXP-2026-005",
-      date: "2026-09-27",
-      outletId: "OUT-03",
-      outletName: "Food Co World - BKC Cloud Kitchen Hub",
-      vendorId: null,
-      vendorName: "BKC Cloud Kitchen Staff Payroll",
-      category: "Kitchen & Outlet Staff Salaries",
-      accountCode: "6010",
-      paymentAccount: "1020",
-      paymentMethod: "HDFC Primary Bank Account (NEFT / RTGS / IMPS)",
-      referenceNo: "PAY-SEP-26-BKC",
-      amount: 185000.00,
-      taxAmount: 0.00,
-      total: 185000.00,
-      status: "Paid",
-      notes: "Monthly chef & kitchen helper payroll batch."
-    },
-    {
-      id: "EXP-2026-006",
-      date: "2026-09-29",
-      outletId: "OUT-04",
-      outletName: "Food Co World - Powai Tech Park Kiosk",
-      vendorId: null,
-      vendorName: "City Logistics & Delivery Fleet",
-      category: "Logistics, Delivery Fleet & Fuel",
-      accountCode: "6040",
-      paymentAccount: "1030",
-      paymentMethod: "Outlet Cash Register Drawer",
-      referenceNo: "FUEL-MUM-99",
-      amount: 14500.00,
-      taxAmount: 0.00,
-      total: 14500.00,
-      status: "Paid",
-      notes: "Refrigerated inter-outlet delivery van diesel receipts."
-    },
-    {
-      id: "EXP-2026-007",
-      date: "2026-09-30",
-      outletId: "OUT-01",
-      outletName: "Food Co World - Central Base Kitchen (Andheri)",
-      vendorId: "VEN-101",
-      vendorName: "Sahyadri Agro & Organic Farm Produce",
-      category: "Food Spoilage & Wastage Write-Off",
-      accountCode: "5030",
-      paymentAccount: "1200",
-      paymentMethod: "Inventory Write-off",
-      referenceNo: "SPOIL-SEP-26",
-      amount: 16500.00,
-      taxAmount: 0.00,
-      total: 16500.00,
-      status: "Paid",
-      notes: "End-of-month fresh herbs and perishable greens shrinkage audit."
-    }
-  ],
+  expenses: [],
 
   // Double-Entry Journals
-  journalEntries: [
-    {
-      id: "JE-2026-001",
-      date: "2026-09-01",
-      reference: "BAL-FWD-2026",
-      narration: "Opening Balance forward entry for September 2026",
-      lines: [
-        { accountCode: "1020", accountName: "HDFC Primary Current Bank Account", debit: 1450000.00, credit: 0.00 },
-        { accountCode: "1200", accountName: "Inventory - Raw Ingredients", debit: 480000.00, credit: 0.00 },
-        { accountCode: "1500", accountName: "Commercial Kitchen Equipment", debit: 2800000.00, credit: 0.00 },
-        { accountCode: "3010", accountName: "Promoter & Partner Capital", debit: 0.00, credit: 4000000.00 },
-        { accountCode: "2500", accountName: "Commercial Kitchen Machinery Loan", debit: 0.00, credit: 730000.00 }
-      ]
-    },
-    {
-      id: "JE-2026-002",
-      date: "2026-09-15",
-      reference: "INV-2026-001-REC",
-      narration: "Record Invoice #INV-2026-001 Receipt from The Grand Royal Bistro",
-      lines: [
-        { accountCode: "1020", accountName: "HDFC Primary Current Bank Account", debit: 156975.00, credit: 0.00 },
-        { accountCode: "4010", accountName: "Wholesale Spice Sales Revenue", debit: 0.00, credit: 149500.00 },
-        { accountCode: "2100", accountName: "GST / Food Tax Payable", debit: 0.00, credit: 7475.00 }
-      ]
-    },
-    {
-      id: "JE-2026-003",
-      date: "2026-09-24",
-      reference: "INV-2026-003-REC",
-      narration: "Record Invoice #INV-2026-003 UPI Payment from Sunrise Bakery",
-      lines: [
-        { accountCode: "1020", accountName: "HDFC Primary Current Bank Account", debit: 68838.00, credit: 0.00 },
-        { accountCode: "4020", accountName: "Retail & Outlet Counter Sales", debit: 0.00, credit: 63600.00 },
-        { accountCode: "2100", accountName: "GST / Food Tax Payable", debit: 0.00, credit: 5238.00 }
-      ]
-    }
-  ]
+  journalEntries: []
 };
 
 // Export to window

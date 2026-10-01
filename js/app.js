@@ -44,7 +44,8 @@
 
   const STORAGE_KEY = 'FOOD_CO_WORLD_ACCOUNTING_DATA_V3';
   const LEGACY_STORAGE_KEYS = ['FOOD_CO_WORLD_ACCOUNTING_DATA_V2', 'FOOD_CO_WORLD_ACCOUNTING_DATA'];
-  const STORAGE_VERSION = 3;
+  const STORAGE_VERSION = 4;
+  const CLEAN_START_VERSION = 'FOOD_CO_WORLD_CLEAN_START_V1';
 
   // Initialize
   function init() {
@@ -69,6 +70,14 @@
   // Load Data with Migration Check
   function loadData() {
     try {
+      // One-time clean start: remove all previous demo/sample data from older builds.
+      // User-created data made after this clean build will then persist normally.
+      if (localStorage.getItem(CLEAN_START_VERSION) !== '1') {
+        localStorage.removeItem(STORAGE_KEY);
+        for (const legacyKey of LEGACY_STORAGE_KEYS) localStorage.removeItem(legacyKey);
+        localStorage.removeItem('FOOD_CO_WORLD_LAST_SAVED');
+        localStorage.setItem(CLEAN_START_VERSION, '1');
+      }
       let stored = localStorage.getItem(STORAGE_KEY);
       if (!stored) {
         for (const legacyKey of LEGACY_STORAGE_KEYS) {
@@ -84,11 +93,7 @@
         state.expenses = parsed.expenses || window.DEFAULT_ACCOUNTING_DATA.expenses;
         state.journalEntries = parsed.journalEntries || window.DEFAULT_ACCOUNTING_DATA.journalEntries;
 
-        // Auto-migrate if older version without outlets or not in INR
-        if (!state.master.outlets || state.master.outlets.length === 0 || state.company.currency !== '₹') {
-          console.log("Migrating to V2 Indian Rupees & Multi-Outlet Structure...");
-          resetToDefaults(false);
-        }
+        // Existing user data is loaded as-is; empty outlets are valid for a new business setup.
       } else {
         resetToDefaults(false);
       }
@@ -143,7 +148,7 @@
       renderLogo();
       populateOutletSelectors();
       if (showFeedback) {
-        showToast("Reset to default Food Co World sample data (Rupees & Outlets)", "success");
+        showToast("Reset to the clean starter setup", "success");
         refreshAllViews();
       }
     }

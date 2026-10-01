@@ -1,6 +1,6 @@
-# Food Co World | Enterprise Accounting & Multi-Outlet Portal
+# Food Co World | Spice Trading Accounting & Business Portal
 
-A specialized financial management and multi-outlet ERP portal built specifically for **Food Co World** to maintain accounts in Indian Rupees (₹), record outlet performance separately, track culinary inventory, enforce double-entry bookkeeping, and manage business master records.
+A specialized financial management and multi-outlet ERP portal built specifically for **Food Co World** to maintain accounts in Indian Rupees (₹), record outlet performance separately, track spice inventory, enforce double-entry bookkeeping, and manage business master records.
 
 ---
 
@@ -14,13 +14,13 @@ A specialized financial management and multi-outlet ERP portal built specificall
 
 ### 2. ✏️ Full Editing in Master Categories
 Every entry across all 10 master sections can now be edited at any time:
-- **Food Co Outlets & Kitchens**: Edit outlet name, code, facility type, branch manager, phone, email, and premises address.
-- **Clients & Buyers**: Edit client name, buyer type, contact, phone, email, optional address, and credit limit.
+- **Business Outlets & Warehouses**: Edit outlet name, code, facility type, branch manager, phone, email, and premises address.
+- **Customers & Buyers**: Edit client name, buyer type, contact, phone, email, optional address, and credit limit.
 - **Suppliers & Vendors**: Edit company name, category, GSTIN, credit terms, contact, and compulsory address.
-- **Food Item Catalog**: Edit product name, SKU, category, measurement unit, cost price, selling price, GST rate %, and active inventory stock.
+- **Spice Product Catalog**: Edit product name, SKU, category, measurement unit, cost price, selling price, GST rate %, and active inventory stock.
 - **Expense Categories**: Edit category name, ledger code, COGS/Operating classification, and description.
 - **Revenue Categories**: Edit stream name, ledger code, and description.
-- **Food Master Categories**: Edit category title and culinary scope.
+- **Spice Product Categories**: Edit category title and culinary scope.
 - **Chart of Accounts**: Edit account name, type, sub-classification, and opening balance.
 - **Tax Rates**: Edit GST bracket name, rate %, and applicability.
 - **Payment Modes**: Edit payment method title and linked ledger account.
@@ -41,15 +41,15 @@ Every entry across all 10 master sections can now be edited at any time:
 
 ### 4. 🏢 Separation of Outlets and Customers
 - **Outlets**: Food Co World's internal physical locations, central production kitchens, delivery hubs, and retail counters:
-  - *Food Co World - Central Base Kitchen (Andheri)*
-  - *Food Co World - Bandra Gourmet Outlet*
-  - *Food Co World - BKC Cloud Kitchen Hub*
-  - *Food Co World - Powai Tech Park Kiosk*
+  - *Example outlet / warehouse (added by user)*
+  - *Example outlet / warehouse (added by user)*
+  - *Example outlet / warehouse (added by user)*
+  - *Example outlet / warehouse (added by user)*
 - **Customers**: External buyers, wholesale restaurants, supermarkets, and corporate banquet clients:
-  - *The Grand Royal Bistro & Lounge*
-  - *Sunrise Bakery & Specialty Cafe*
-  - *Pacific Luxury Hotels & Banquets*
-  - *Nature Fresh Gourmet Supermarket Chain*
+  - *Example customer (not preloaded)*
+  - *Example customer (not preloaded)*
+  - *Example customer (not preloaded)*
+  - *Example customer (not preloaded)*
 
 ---
 
@@ -100,3 +100,10 @@ Double-click:
 ```
 C:\Users\fathi\OneDrive\Documents\FoodCoWorld-Accounting\index.html
 ```
+
+
+## Clean Starter Data
+
+This distribution contains no demo customers, suppliers, products, outlets, invoices, expenses, journal entries, or opening account balances. Add your own business data from the Master, Sales, Expenses, Banking, and Settings sections.
+
+All changes are saved automatically in the browser. Use the Backup/Restore feature regularly if the application is used as a local browser-based accounting system.
