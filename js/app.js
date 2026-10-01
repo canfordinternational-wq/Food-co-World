@@ -42,7 +42,9 @@
     }
   };
 
-  const STORAGE_KEY = 'FOOD_CO_WORLD_ACCOUNTING_DATA_V2';
+  const STORAGE_KEY = 'FOOD_CO_WORLD_ACCOUNTING_DATA_V3';
+  const LEGACY_STORAGE_KEYS = ['FOOD_CO_WORLD_ACCOUNTING_DATA_V2', 'FOOD_CO_WORLD_ACCOUNTING_DATA'];
+  const STORAGE_VERSION = 3;
 
   // Initialize
   function init() {
@@ -59,12 +61,21 @@
     renderBankingView();
     renderFinancialReport();
     renderSettingsView();
+    updateSaveStatus();
+    window.addEventListener('beforeunload', () => { saveData(true); });
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') saveData(true); });
   }
 
   // Load Data with Migration Check
   function loadData() {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      let stored = localStorage.getItem(STORAGE_KEY);
+      if (!stored) {
+        for (const legacyKey of LEGACY_STORAGE_KEYS) {
+          const legacy = localStorage.getItem(legacyKey);
+          if (legacy) { stored = legacy; break; }
+        }
+      }
       if (stored) {
         const parsed = JSON.parse(stored);
         state.company = parsed.company || window.DEFAULT_ACCOUNTING_DATA.company;
@@ -91,6 +102,8 @@
   function saveData() {
     try {
       const dataToSave = {
+        schemaVersion: STORAGE_VERSION,
+        savedAt: new Date().toISOString(),
         company: state.company,
         master: state.master,
         invoices: state.invoices,
@@ -98,9 +111,23 @@
         journalEntries: state.journalEntries
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
+      localStorage.setItem('FOOD_CO_WORLD_LAST_SAVED', dataToSave.savedAt);
+      updateSaveStatus(dataToSave.savedAt);
     } catch (e) {
       console.error("Error saving data:", e);
       showToast("Storage error: Failed to save changes locally", "error");
+    }
+  }
+
+  function updateSaveStatus(savedAt) {
+    const el = document.getElementById('data-save-status');
+    if (!el) return;
+    const value = savedAt || localStorage.getItem('FOOD_CO_WORLD_LAST_SAVED');
+    if (value) {
+      const d = new Date(value);
+      el.textContent = `Saved automatically • ${d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}`;
+    } else {
+      el.textContent = 'Changes are saved automatically';
     }
   }
 
@@ -3344,6 +3371,41 @@
   }
 
   // ==========================================
+  // LOCAL DATA BACKUP / RESTORE
+  // ==========================================
+  function downloadDataBackup() {
+    saveData(true);
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return showToast('No saved data available', 'error');
+    const blob = new Blob([raw], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `FoodCoWorld_Backup_${new Date().toISOString().slice(0,10)}.json`;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+    showToast('Backup downloaded successfully', 'success');
+  }
+
+  function restoreDataBackup(file) {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const parsed = JSON.parse(e.target.result);
+        if (!parsed || !parsed.master || !Array.isArray(parsed.invoices) || !Array.isArray(parsed.expenses)) {
+          throw new Error('Invalid Food Co World backup');
+        }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+        location.reload();
+      } catch (err) {
+        showToast('Invalid backup file. Nothing was changed.', 'error');
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  // ==========================================
   // JOURNAL ENTRIES (DOUBLE-ENTRY BOOKKEEPING)
   // ==========================================
   function openNewJournalModal() {
@@ -3573,6 +3635,8 @@
     uploadLogoFile,
     removeLogo,
     backupJSON,
+    downloadDataBackup,
+    restoreDataBackup,
     restoreJSON,
 
     // Outlets CRUD

@@ -1213,3 +1213,15 @@ canvas.chart-canvas {
 .quick-actions .btn-primary { background: #fff; color: #065f46; border-color: #fff; }
 .quick-actions .btn-secondary { background: rgba(255,255,255,.12); color: #fff; border-color: rgba(255,255,255,.28); }
 @media (max-width: 700px) { .quick-actions-card { align-items: flex-start; flex-direction: column; } }
+
+
+/* Persistent data status */
+.data-save-status {
+  font-size: 11px;
+  color: #047857;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 999px;
+  padding: 6px 10px;
+  white-space: nowrap;
+}
