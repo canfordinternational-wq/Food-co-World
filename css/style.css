@@ -1,10 +1,10 @@
 /* Food Co World Accounting Portal - Core Stylesheet */
 :root {
-  --primary: #064e3b;
+  --primary: #065f46;
   --primary-hover: #047857;
   --primary-light: #ecfdf5;
   --primary-dark: #064e3b;
-  --accent: #c77700;
+  --accent: #d97706;
   --accent-light: #fef3c7;
   
   --bg-app: #f8fafc;
@@ -81,7 +81,7 @@ body {
 .brand-logo {
   width: 42px;
   height: 42px;
-  background: linear-gradient(135deg, #10b981 0%, #047857 55%, #d97706 100%);
+  background: linear-gradient(135deg, #10b981, #f59e0b);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
@@ -1193,35 +1193,45 @@ canvas.chart-canvas {
 }
 
 
-
-/* Spice-trading brand layer */
-.quick-actions-card {
-  background: linear-gradient(135deg, #064e3b 0%, #047857 68%, #a16207 100%);
-  color: #fff;
-  border-radius: var(--radius-lg);
-  padding: 18px 20px;
-  margin-bottom: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* Indian Spice Product Gallery */
+.spice-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   gap: 18px;
-  box-shadow: var(--shadow);
+  padding: 18px 0 4px;
 }
-.quick-actions-title { font-size: 18px; font-weight: 800; }
-.quick-actions-subtitle { margin-top: 3px; color: #d1fae5; font-size: 12px; }
-.quick-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-.quick-actions .btn-primary { background: #fff; color: #065f46; border-color: #fff; }
-.quick-actions .btn-secondary { background: rgba(255,255,255,.12); color: #fff; border-color: rgba(255,255,255,.28); }
-@media (max-width: 700px) { .quick-actions-card { align-items: flex-start; flex-direction: column; } }
-
-
-/* Persistent data status */
-.data-save-status {
-  font-size: 11px;
-  color: #047857;
-  background: #ecfdf5;
-  border: 1px solid #a7f3d0;
-  border-radius: 999px;
-  padding: 6px 10px;
-  white-space: nowrap;
+.spice-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(15,23,42,.06);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.spice-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(15,23,42,.11);
+}
+.spice-card-image {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  display: block;
+  background: #f1f5f9;
+}
+.spice-card-body { padding: 14px; }
+.spice-card-title { font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 5px; }
+.spice-card-sku { font-size: 11px; color: #64748b; font-family: monospace; margin-bottom: 10px; }
+.spice-card-meta { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:10px; }
+.spice-card-price { font-size: 14px; font-weight: 800; color: #047857; }
+.spice-card-stock { font-size: 11px; }
+.spice-card-actions { display:flex; gap:7px; }
+.spice-card-actions .btn { flex:1; }
+.spice-gallery-empty { padding: 35px 15px; text-align:center; color:#94a3b8; grid-column:1/-1; }
+@media (max-width: 700px) {
+  .spice-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .spice-card-image { height: 140px; }
+}
+@media (max-width: 430px) {
+  .spice-gallery { grid-template-columns: 1fr; }
 }

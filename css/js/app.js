@@ -38,6 +38,7 @@
       master: '',
       invoices: '',
       expenses: '',
+      journals: ''
     }
   };
 
@@ -46,6 +47,7 @@
   // Initialize
   function init() {
     loadData();
+    ensureIndianSpiceProducts();
     setupEventListeners();
     renderLogo();
     populateOutletSelectors();
@@ -54,6 +56,7 @@
     renderMasterView();
     renderInvoicesTable();
     renderExpensesTable();
+    renderJournalsTable();
     renderBankingView();
     renderFinancialReport();
     renderSettingsView();
@@ -83,6 +86,64 @@
       console.error("Failed to load local storage data:", e);
       resetToDefaults(false);
     }
+  }
+
+  // Indian Spice Product Starter Catalogue
+  // Images use Wikimedia Commons Special:FilePath URLs so the catalogue can remain lightweight.
+  const INDIAN_SPICE_PRODUCTS = [
+    { sku: 'SP-001', name: 'Black Pepper', category: 'Indian Spices', unit: 'Kg', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Indian%20black%20pepper.jpg?width=500' },
+    { sku: 'SP-002', name: 'Turmeric', category: 'Indian Spices', unit: 'Kg', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Turmeric%20of%20India.jpg?width=500' },
+    { sku: 'SP-003', name: 'Green Cardamom', category: 'Indian Spices', unit: 'Kg', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Cardamom%20(Elaichi)%20from%20India.jpg?width=500' },
+    { sku: 'SP-004', name: 'Cinnamon', category: 'Indian Spices', unit: 'Kg', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Cinnamon%20bark.jpg?width=500' },
+    { sku: 'SP-005', name: 'Cloves', category: 'Indian Spices', unit: 'Kg', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Cloves%20from%20india.jpg?width=500' },
+    { sku: 'SP-006', name: 'Cumin Seeds', category: 'Indian Spices', unit: 'Kg', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Cumin.jpg?width=500' },
+    { sku: 'SP-007', name: 'Coriander Seeds', category: 'Indian Spices', unit: 'Kg', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Coriander%20whole.jpg?width=500' },
+    { sku: 'SP-008', name: 'Fenugreek Seeds', category: 'Indian Spices', unit: 'Kg', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Fenugreek%20seeds(%E0%A6%AE%E0%A7%87%E0%A6%A5%E0%A6%BF).JPG?width=500' },
+    { sku: 'SP-009', name: 'Mustard Seeds', category: 'Indian Spices', unit: 'Kg', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Mustard%20Seeds%20in%20a%20plate%20at%20Reganigudem.jpg?width=500' },
+    { sku: 'SP-010', name: 'Dry Red Chilli', category: 'Indian Spices', unit: 'Kg', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Closeup%20of%20Khola%20chilli.jpg?width=500' },
+    { sku: 'SP-011', name: 'Star Anise', category: 'Indian Spices', unit: 'Kg', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Illicium%20verum.jpg?width=500' },
+    { sku: 'SP-012', name: 'Black Cumin (Kalonji)', category: 'Indian Spices', unit: 'Kg', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Blackcuminseeds.jpg?width=500' },
+    { sku: 'SP-013', name: 'Mace (Javitri)', category: 'Indian Spices', unit: 'Kg', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Mace%201.JPG?width=500' },
+    { sku: 'SP-014', name: 'Kasuri Methi', category: 'Indian Spices', unit: 'Kg', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Kasoori%20Methi.jpg?width=500' },
+    { sku: 'SP-015', name: 'Indian Spice Mix', category: 'Indian Spice Blends', unit: 'Kg', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Common%20Indian%20spices.jpg?width=500' }
+  ];
+
+  function ensureIndianSpiceProducts() {
+    if (!state.master || !Array.isArray(state.master.items)) return;
+    let changed = false;
+    state.master.itemCategories = Array.isArray(state.master.itemCategories) ? state.master.itemCategories : [];
+    [
+      { name: 'Indian Spices', description: 'Whole and dried Indian spices for wholesale and retail trade.' },
+      { name: 'Indian Spice Blends', description: 'Blended spice products and masala mixes.' }
+    ].forEach((category, index) => {
+      if (!state.master.itemCategories.some(c => c.name === category.name)) {
+        state.master.itemCategories.push({ id: `SPICE-CAT-${index + 1}`, ...category });
+        changed = true;
+      }
+    });
+    INDIAN_SPICE_PRODUCTS.forEach((spice, index) => {
+      const existing = state.master.items.find(item => item.sku === spice.sku);
+      if (existing) {
+        if (!existing.image) { existing.image = spice.image; changed = true; }
+        if (!existing.category || existing.category === 'Grains, Spices & Dry Staples') { existing.category = spice.category; changed = true; }
+        return;
+      }
+      state.master.items.push({
+        id: spice.sku,
+        name: spice.name,
+        sku: spice.sku,
+        category: spice.category,
+        unit: spice.unit,
+        costPrice: 0,
+        salePrice: 0,
+        taxRate: 0,
+        stockQty: 0,
+        reorderLevel: 10,
+        image: spice.image
+      });
+      changed = true;
+    });
+    if (changed) saveData();
   }
 
   // Save State
@@ -317,6 +378,7 @@
       master: "Master Categories & Outlets",
       invoices: "Sales & Invoicing",
       expenses: "Expenses & Vendor Bills",
+      journals: "General Ledger & Journal Entries",
       banking: "Cash & Bank Accounts",
       reports: "Financial Statements & Reports",
       settings: "Company Settings & Logo"
@@ -329,6 +391,7 @@
     if (viewName === 'master') renderCurrentMasterTab();
     if (viewName === 'invoices') renderInvoicesTable();
     if (viewName === 'expenses') renderExpensesTable();
+    if (viewName === 'journals') renderJournalsTable();
     if (viewName === 'banking') renderBankingView();
     if (viewName === 'reports') renderFinancialReport();
   }
@@ -363,6 +426,7 @@
     renderCurrentMasterTab();
     renderInvoicesTable();
     renderExpensesTable();
+    renderJournalsTable();
     renderBankingView();
     renderFinancialReport();
     renderSettingsView();
@@ -1009,59 +1073,47 @@
 
   // 7. Master: Food Items Catalog
   function buildItemsCatalogTable(query) {
-    const list = state.master.items.filter(item => 
-      !query || item.name.toLowerCase().includes(query) || item.sku.toLowerCase().includes(query) || item.category.toLowerCase().includes(query)
-    );
+    const list = state.master.items.filter(item => {
+      const q = (query || '').toLowerCase();
+      return !q || (item.name || '').toLowerCase().includes(q) || (item.sku || '').toLowerCase().includes(q) || (item.category || '').toLowerCase().includes(q);
+    });
+
+    const fallbackImage = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="100%" height="100%" fill="#f1f5f9"/><text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-size="28" fill="#94a3b8">Spice Image</text></svg>`);
 
     return `
       <div class="table-card">
         <div class="table-toolbar">
-          <div style="font-weight: 700; font-size: 15px; color: var(--primary-dark);">
-            Food Products & Ingredients Catalog (${list.length})
+          <div>
+            <div style="font-weight: 800; font-size: 16px; color: var(--primary-dark);">Indian Spice Product Catalogue (${list.length})</div>
+            <div style="font-size: 12px; color: #64748b; margin-top: 3px;">Visual product list for Indian spices, with SKU, pricing, GST and stock information. Product images are loaded from Wikimedia Commons.</div>
           </div>
           <button class="btn btn-primary" onclick="window.FCW.openAddItemModal()">
-            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"/></svg>
-            Add Food Item
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+            Add Spice Product
           </button>
         </div>
-        <div class="table-wrapper">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>SKU</th>
-                <th>Item / Food Name</th>
-                <th>Category</th>
-                <th>Unit</th>
-                <th class="text-right">Cost Price (₹)</th>
-                <th class="text-right">Selling Price (₹)</th>
-                <th class="text-center">GST %</th>
-                <th class="text-center">Stock</th>
-                <th class="text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${list.map(item => `
-                <tr>
-                  <td><code>${item.sku}</code></td>
-                  <td><strong>${item.name}</strong></td>
-                  <td><span class="badge badge-secondary">${item.category}</span></td>
-                  <td>${item.unit}</td>
-                  <td class="text-right">${formatCurrency(item.costPrice)}</td>
-                  <td class="text-right" style="font-weight: 600; color: #047857;">${formatCurrency(item.salePrice)}</td>
-                  <td class="text-center">${item.taxRate}%</td>
-                  <td class="text-center">
-                    <span class="badge ${item.stockQty <= (item.reorderLevel || 10) ? 'badge-danger' : 'badge-success'}">
-                      ${item.stockQty} ${item.unit}
-                    </span>
-                  </td>
-                  <td class="text-right">
-                    <button class="btn btn-secondary btn-sm" onclick="window.FCW.openEditItemModal('${item.id}')">Edit</button>
-                    <button class="btn btn-danger btn-sm" onclick="window.FCW.deleteItem('${item.id}')">Delete</button>
-                  </td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
+        <div class="spice-gallery">
+          ${list.length === 0 ? '<div class="spice-gallery-empty">No spice products found. Try another search or add a product.</div>' : list.map(item => `
+            <article class="spice-card">
+              <img class="spice-card-image" src="${item.image || fallbackImage}" alt="${item.name || 'Spice'}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImage}'">
+              <div class="spice-card-body">
+                <div class="spice-card-title">${item.name}</div>
+                <div class="spice-card-sku">SKU: ${item.sku}</div>
+                <div class="spice-card-meta">
+                  <span class="badge badge-secondary">${item.category}</span>
+                  <span class="spice-card-stock badge ${item.stockQty <= (item.reorderLevel || 10) ? 'badge-danger' : 'badge-success'}">${item.stockQty} ${item.unit}</span>
+                </div>
+                <div class="spice-card-meta">
+                  <span class="spice-card-price">${formatCurrency(item.salePrice)}</span>
+                  <span style="font-size:11px;color:#64748b;">GST ${item.taxRate}%</span>
+                </div>
+                <div class="spice-card-actions">
+                  <button class="btn btn-secondary btn-sm" onclick="window.FCW.openEditItemModal('${item.id}')">Edit</button>
+                  <button class="btn btn-danger btn-sm" onclick="window.FCW.deleteItem('${item.id}')">Delete</button>
+                </div>
+              </div>
+            </article>
+          `).join('')}
         </div>
       </div>
     `;
@@ -1311,6 +1363,72 @@
         </td>
       </tr>
     `).join('');
+  }
+
+  // ==========================================
+  // GENERAL LEDGER & JOURNALS
+  // ==========================================
+  function renderJournalsTable() {
+    const container = document.getElementById('journals-container');
+    if (!container) return;
+
+    const query = state.searchQueries.journals;
+    const list = state.journalEntries.filter(je => 
+      !query || je.id.toLowerCase().includes(query) || (je.narration && je.narration.toLowerCase().includes(query)) || (je.reference && je.reference.toLowerCase().includes(query))
+    );
+
+    if (list.length === 0) {
+      container.innerHTML = '<div style="padding: 30px; text-align: center; color: #94a3b8;">No journal entries found.</div>';
+      return;
+    }
+
+    container.innerHTML = list.map(je => {
+      const totalDebit = je.lines.reduce((s, l) => s + (Number(l.debit) || 0), 0);
+      const totalCredit = je.lines.reduce((s, l) => s + (Number(l.credit) || 0), 0);
+
+      return `
+        <div class="table-card" style="margin-bottom: 20px;">
+          <div class="table-toolbar" style="background: #fafaf9;">
+            <div>
+              <span style="font-weight: 700; font-size: 15px; color: var(--primary-dark);">${je.id}</span>
+              <span style="margin-left: 12px; color: #64748b; font-size: 13px;">${formatDate(je.date)}</span>
+              ${je.reference ? `<span class="badge badge-secondary" style="margin-left: 8px;">Ref: ${je.reference}</span>` : ''}
+            </div>
+            <div style="font-size: 13px; color: #475569;">
+              <strong>${je.narration}</strong>
+            </div>
+            <button class="btn btn-danger btn-sm" onclick="window.FCW.deleteJournal('${je.id}')">Delete</button>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Account Code</th>
+                  <th>Account Title</th>
+                  <th class="text-right" style="width: 160px;">Debit (₹)</th>
+                  <th class="text-right" style="width: 160px;">Credit (₹)</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${je.lines.map(line => `
+                  <tr>
+                    <td><code>${line.accountCode}</code></td>
+                    <td>${line.accountName || getAccountNameByCode(line.accountCode)}</td>
+                    <td class="text-right">${line.debit > 0 ? formatCurrency(line.debit) : '-'}</td>
+                    <td class="text-right">${line.credit > 0 ? formatCurrency(line.credit) : '-'}</td>
+                  </tr>
+                `).join('')}
+                <tr style="background-color: #f8fafc; font-weight: 700;">
+                  <td colspan="2" class="text-right">Entry Totals:</td>
+                  <td class="text-right" style="color: #047857;">${formatCurrency(totalDebit)}</td>
+                  <td class="text-right" style="color: #047857;">${formatCurrency(totalCredit)}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }).join('');
   }
 
   // ==========================================
@@ -2416,6 +2534,7 @@
     document.getElementById('new-item-sale').value = '0.00';
     document.getElementById('new-item-tax').value = '5';
     document.getElementById('new-item-stock').value = '100';
+    document.getElementById('new-item-image').value = '';
     openModal('modal-add-item');
   }
 
@@ -2432,6 +2551,7 @@
     document.getElementById('new-item-sale').value = item.salePrice;
     document.getElementById('new-item-tax').value = item.taxRate;
     document.getElementById('new-item-stock').value = item.stockQty;
+    document.getElementById('new-item-image').value = item.image || '';
     openModal('modal-add-item');
   }
 
@@ -2444,6 +2564,7 @@
     const sale = parseFloat(document.getElementById('new-item-sale').value) || 0;
     const tax = parseFloat(document.getElementById('new-item-tax').value) || 0;
     const stock = parseInt(document.getElementById('new-item-stock').value) || 0;
+    const image = document.getElementById('new-item-image').value.trim();
 
     if (!name || !sku) return showToast("Item Name and SKU are required", "error");
 
@@ -2458,6 +2579,7 @@
         item.salePrice = sale;
         item.taxRate = tax;
         item.stockQty = stock;
+        item.image = image;
         showToast(`Food item "${name}" updated`, "success");
       }
     } else {
@@ -2471,7 +2593,8 @@
         salePrice: sale,
         taxRate: tax,
         stockQty: stock,
-        reorderLevel: 15
+        reorderLevel: 15,
+        image
       });
       showToast(`Food item "${name}" added`, "success");
     }
@@ -3272,6 +3395,171 @@
     showToast(`Expense ${id} deleted`, "warning");
   }
 
+  // ==========================================
+  // JOURNAL ENTRIES (DOUBLE-ENTRY BOOKKEEPING)
+  // ==========================================
+  function openNewJournalModal() {
+    populateJournalModalRows();
+    openModal('modal-new-journal');
+  }
+
+  function populateJournalModalRows() {
+    const tbody = document.getElementById('journal-lines-tbody');
+    if (!tbody) return;
+
+    tbody.innerHTML = `
+      <tr>${getJournalLineRowHtml()}</tr>
+      <tr>${getJournalLineRowHtml()}</tr>
+    `;
+
+    tbody.querySelectorAll('tr').forEach(attachJournalRowEvents);
+    calculateJournalTotals();
+
+    const dateInput = document.getElementById('je-date');
+    if (dateInput) dateInput.value = new Date().toISOString().slice(0, 10);
+  }
+
+  function getJournalLineRowHtml() {
+    const accOptions = state.master.chartOfAccounts.map(a => `
+      <option value="${a.code}">${a.code} - ${a.name} [${a.type}]</option>
+    `).join('');
+
+    return `
+      <td>
+        <select class="je-account-select form-select">
+          <option value="">-- Select Account --</option>
+          ${accOptions}
+        </select>
+      </td>
+      <td>
+        <input type="number" class="je-debit-input form-input text-right" value="0.00" step="0.01">
+      </td>
+      <td>
+        <input type="number" class="je-credit-input form-input text-right" value="0.00" step="0.01">
+      </td>
+      <td class="text-center">
+        <button type="button" class="btn btn-danger btn-sm" onclick="window.FCW.removeJournalRow(this)">✕</button>
+      </td>
+    `;
+  }
+
+  function attachJournalRowEvents(row) {
+    const debit = row.querySelector('.je-debit-input');
+    const credit = row.querySelector('.je-credit-input');
+
+    debit.addEventListener('input', () => {
+      if (parseFloat(debit.value) > 0) credit.value = "0.00";
+      calculateJournalTotals();
+    });
+
+    credit.addEventListener('input', () => {
+      if (parseFloat(credit.value) > 0) debit.value = "0.00";
+      calculateJournalTotals();
+    });
+  }
+
+  function calculateJournalTotals() {
+    let debits = 0;
+    let credits = 0;
+
+    document.querySelectorAll('#journal-lines-tbody tr').forEach(r => {
+      debits += parseFloat(r.querySelector('.je-debit-input').value) || 0;
+      credits += parseFloat(r.querySelector('.je-credit-input').value) || 0;
+    });
+
+    const debEl = document.getElementById('je-total-debit');
+    const credEl = document.getElementById('je-total-credit');
+    const badgeEl = document.getElementById('je-balance-indicator');
+
+    if (debEl) debEl.textContent = formatCurrency(debits);
+    if (credEl) credEl.textContent = formatCurrency(credits);
+
+    if (badgeEl) {
+      const diff = Math.abs(debits - credits);
+      if (diff < 0.01 && debits > 0) {
+        badgeEl.className = 'badge badge-success';
+        badgeEl.textContent = '✓ Balanced (Debits = Credits)';
+      } else {
+        badgeEl.className = 'badge badge-danger';
+        badgeEl.textContent = `Unbalanced (Difference: ${formatCurrency(diff)})`;
+      }
+    }
+  }
+
+  function submitNewJournal() {
+    const date = document.getElementById('je-date').value || new Date().toISOString().slice(0, 10);
+    const ref = document.getElementById('je-reference').value.trim();
+    const narration = document.getElementById('je-narration').value.trim();
+
+    if (!narration) return showToast("Narration / Explanation is required", "error");
+
+    const rows = document.querySelectorAll('#journal-lines-tbody tr');
+    const lines = [];
+    let totalDebit = 0;
+    let totalCredit = 0;
+
+    rows.forEach(r => {
+      const accSelect = r.querySelector('.je-account-select');
+      const debitInput = r.querySelector('.je-debit-input');
+      const creditInput = r.querySelector('.je-credit-input');
+
+      if (accSelect && accSelect.value) {
+        const accountCode = accSelect.value;
+        const debit = parseFloat(debitInput.value) || 0;
+        const credit = parseFloat(creditInput.value) || 0;
+
+        if (debit > 0 || credit > 0) {
+          lines.push({
+            accountCode,
+            accountName: getAccountNameByCode(accountCode),
+            debit,
+            credit
+          });
+          totalDebit += debit;
+          totalCredit += credit;
+        }
+      }
+    });
+
+    if (lines.length < 2) return showToast("At least two balancing lines required", "error");
+    if (Math.abs(totalDebit - totalCredit) > 0.01) {
+      return showToast(`Entry is unbalanced! Debits must equal Credits. Difference: ${formatCurrency(Math.abs(totalDebit - totalCredit))}`, "error");
+    }
+
+    const newJeId = `JE-2026-${String(state.journalEntries.length + 1).padStart(3, '0')}`;
+    state.journalEntries.unshift({
+      id: newJeId,
+      date,
+      reference: ref,
+      narration,
+      lines
+    });
+
+    lines.forEach(line => {
+      const acc = state.master.chartOfAccounts.find(a => a.code === line.accountCode);
+      if (acc) {
+        if (['Asset', 'Expense'].includes(acc.type)) {
+          acc.balance += (line.debit - line.credit);
+        } else {
+          acc.balance += (line.credit - line.debit);
+        }
+      }
+    });
+
+    saveData();
+    closeAllModals();
+    showToast(`Journal voucher ${newJeId} posted!`, "success");
+    refreshAllViews();
+  }
+
+  function deleteJournal(id) {
+    if (!confirm(`Delete journal entry ${id}?`)) return;
+    state.journalEntries = state.journalEntries.filter(j => j.id !== id);
+    saveData();
+    refreshAllViews();
+    showToast(`Journal ${id} deleted`, "warning");
+  }
+
   // Fund Transfers
   function openTransferFundsModal() {
     const fromSelect = document.getElementById('transfer-from-select');
@@ -3428,6 +3716,28 @@
     openNewExpenseModal,
     submitNewExpense,
     deleteExpense,
+
+    // Journal Operations
+    openNewJournalModal,
+    submitNewJournal,
+    deleteJournal,
+    addJournalRow: () => {
+      const tbody = document.getElementById('journal-lines-tbody');
+      if (!tbody) return;
+      const tr = document.createElement('tr');
+      tr.innerHTML = getJournalLineRowHtml();
+      tbody.appendChild(tr);
+      attachJournalRowEvents(tr);
+    },
+    removeJournalRow: (btn) => {
+      const row = btn.closest('tr');
+      if (document.querySelectorAll('#journal-lines-tbody tr').length > 2) {
+        row.remove();
+        calculateJournalTotals();
+      } else {
+        showToast("Journal entry requires at least 2 balancing lines", "warning");
+      }
+    },
 
     // Transfers
     openTransferFundsModal,
