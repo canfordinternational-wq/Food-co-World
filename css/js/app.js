@@ -1,5 +1,5 @@
-// Food Co World Accounting Portal - Main Application Engine
-// Enhanced with Indian Rupees (₹), Multi-Outlet Separate Accounting,
+// Spice Co World Raw Spice Trading Accounting Portal - Main Application Engine
+// Enhanced with Indian Rupees (₹), Multi-Warehouse Separate Accounting,
 // Master Entries Full Edit Capability, Invoice Modification with Reason Tracking,
 // Compulsory Supplier Address, Optional Client Address, and Direct Logo Upload.
 
@@ -26,7 +26,7 @@
     journalEntries: [],
     currentView: 'dashboard',
     currentMasterTab: 'outlets',
-    selectedOutlet: 'all', // 'all' or outletId
+    selectedWarehouse: 'all', // 'all' or outletId
     reportDateRange: 'all',
     currentReportType: 'pnl',
     editingInvoiceId: null, // null for new, ID for editing
@@ -50,7 +50,7 @@
     ensureIndianSpiceProducts();
     setupEventListeners();
     renderLogo();
-    populateOutletSelectors();
+    populateWarehouseSelectors();
     renderCurrentView();
     updateDashboard();
     renderMasterView();
@@ -76,7 +76,7 @@
 
         // Auto-migrate if older version without outlets or not in INR
         if (!state.master.outlets || state.master.outlets.length === 0 || state.company.currency !== '₹') {
-          console.log("Migrating to V2 Indian Rupees & Multi-Outlet Structure...");
+          console.log("Migrating to V2 Indian Rupees & Multi-Warehouse Structure...");
           resetToDefaults(false);
         }
       } else {
@@ -173,9 +173,9 @@
       state.journalEntries = JSON.parse(JSON.stringify(window.DEFAULT_ACCOUNTING_DATA.journalEntries));
       saveData();
       renderLogo();
-      populateOutletSelectors();
+      populateWarehouseSelectors();
       if (showFeedback) {
-        showToast("Reset to default Food Co World sample data (Rupees & Outlets)", "success");
+        showToast("Reset to default Spice Co World raw-spice sample data (Rupees & Warehouses)", "success");
         refreshAllViews();
       }
     }
@@ -235,7 +235,7 @@
     if (!brandSlot) return;
 
     if (state.company.logo && state.company.logo.trim() !== '') {
-      brandSlot.innerHTML = `<img src="${state.company.logo}" class="brand-custom-logo" alt="Food Co World Logo">`;
+      brandSlot.innerHTML = `<img src="${state.company.logo}" class="brand-custom-logo" alt="Spice Co World Logo">`;
       if (settingsPreview) {
         settingsPreview.innerHTML = `<img src="${state.company.logo}" alt="Company Logo">`;
       }
@@ -247,12 +247,12 @@
     }
   }
 
-  // Populate Outlet Selectors across App (Topbar, Invoices, Expenses, Reports)
-  function populateOutletSelectors() {
+  // Populate Warehouse Selectors across App (Topbar, Invoices, Expenses, Reports)
+  function populateWarehouseSelectors() {
     const topbarSelect = document.getElementById('topbar-outlet-selector');
     if (topbarSelect) {
-      const current = state.selectedOutlet || 'all';
-      let opts = `<option value="all" ${current === 'all' ? 'selected' : ''}>🏢 All Outlets (Consolidated)</option>`;
+      const current = state.selectedWarehouse || 'all';
+      let opts = `<option value="all" ${current === 'all' ? 'selected' : ''}>🏢 All Warehouses (Consolidated)</option>`;
       state.master.outlets.forEach(out => {
         opts += `<option value="${out.id}" ${current === out.id ? 'selected' : ''}>📍 ${out.name} [${out.code}]</option>`;
       });
@@ -319,11 +319,11 @@
       if (e.key === 'Escape') closeAllModals();
     });
 
-    // Topbar Outlet Selector
-    const topbarOutlet = document.getElementById('topbar-outlet-selector');
-    if (topbarOutlet) {
-      topbarOutlet.addEventListener('change', (e) => {
-        setOutletFilter(e.target.value);
+    // Topbar Warehouse Selector
+    const topbarWarehouse = document.getElementById('topbar-outlet-selector');
+    if (topbarWarehouse) {
+      topbarWarehouse.addEventListener('change', (e) => {
+        setWarehouseFilter(e.target.value);
       });
     }
 
@@ -375,7 +375,7 @@
 
     const titles = {
       dashboard: "Executive Dashboard",
-      master: "Master Categories & Outlets",
+      master: "Master Categories & Warehouses",
       invoices: "Sales & Invoicing",
       expenses: "Expenses & Vendor Bills",
       journals: "General Ledger & Journal Entries",
@@ -396,11 +396,11 @@
     if (viewName === 'reports') renderFinancialReport();
   }
 
-  // Set Outlet Filter
-  function setOutletFilter(outletId) {
-    state.selectedOutlet = outletId;
+  // Set Warehouse Filter
+  function setWarehouseFilter(outletId) {
+    state.selectedWarehouse = outletId;
     const outletObj = state.master.outlets.find(o => o.id === outletId);
-    const label = outletObj ? outletObj.name : "All Outlets (Consolidated)";
+    const label = outletObj ? outletObj.name : "All Warehouses (Consolidated)";
     showToast(`Filtering accounts for: ${label}`, "info");
 
     refreshAllViews();
@@ -421,7 +421,7 @@
   }
 
   function refreshAllViews() {
-    populateOutletSelectors();
+    populateWarehouseSelectors();
     updateDashboard();
     renderCurrentMasterTab();
     renderInvoicesTable();
@@ -446,19 +446,19 @@
     if (modal) modal.classList.add('active');
   }
 
-  // Filter Transactions by Outlet
+  // Filter Transactions by Warehouse
   function getFilteredInvoices() {
-    if (!state.selectedOutlet || state.selectedOutlet === 'all') {
+    if (!state.selectedWarehouse || state.selectedWarehouse === 'all') {
       return state.invoices;
     }
-    return state.invoices.filter(i => i.outletId === state.selectedOutlet);
+    return state.invoices.filter(i => i.outletId === state.selectedWarehouse);
   }
 
   function getFilteredExpenses() {
-    if (!state.selectedOutlet || state.selectedOutlet === 'all') {
+    if (!state.selectedWarehouse || state.selectedWarehouse === 'all') {
       return state.expenses;
     }
-    return state.expenses.filter(e => e.outletId === state.selectedOutlet);
+    return state.expenses.filter(e => e.outletId === state.selectedWarehouse);
   }
 
   // ==========================================
@@ -509,7 +509,7 @@
         id: inv.id,
         date: inv.date,
         party: inv.customerName,
-        outlet: inv.outletName || 'Central Kitchen',
+        outlet: inv.outletName || 'Central Warehouse',
         category: inv.category,
         amount: inv.grandTotal,
         status: inv.status,
@@ -520,7 +520,7 @@
         id: exp.id,
         date: exp.date,
         party: exp.vendorName || 'Operational Bill',
-        outlet: exp.outletName || 'Central Kitchen',
+        outlet: exp.outletName || 'Central Warehouse',
         category: exp.category,
         amount: exp.total,
         status: exp.status,
@@ -543,7 +543,7 @@
             </span>
           </td>
           <td>${item.party}</td>
-          <td><span class="badge badge-purple" style="font-size:11px;">📍 ${item.outlet.replace('Food Co World - ', '')}</span></td>
+          <td><span class="badge badge-purple" style="font-size:11px;">📍 ${item.outlet.replace('Spice Co World - ', '')}</span></td>
           <td><span class="badge badge-secondary">${item.category}</span></td>
           <td class="text-right" style="font-weight: 600; color: ${item.isIncome ? '#047857' : '#b91c1c'};">
             ${item.isIncome ? '+' : '-'}${formatCurrency(item.amount)}
@@ -702,7 +702,7 @@
 
     switch (tab) {
       case 'outlets':
-        html = buildOutletsTable(query);
+        html = buildWarehousesTable(query);
         break;
       case 'customers':
         html = buildCustomersTable(query);
@@ -738,8 +738,8 @@
     container.innerHTML = html;
   }
 
-  // 1. Master: Outlets (Branches & Kitchens)
-  function buildOutletsTable(query) {
+  // 1. Master: Warehouses (Branches & Warehouses)
+  function buildWarehousesTable(query) {
     const list = state.master.outlets.filter(o => 
       !query || o.name.toLowerCase().includes(query) || o.code.toLowerCase().includes(query) || o.type.toLowerCase().includes(query) || (o.address && o.address.toLowerCase().includes(query))
     );
@@ -749,24 +749,24 @@
         <div class="table-toolbar">
           <div>
             <div style="font-weight: 700; font-size: 15px; color: var(--primary-dark);">
-              Food Co World Outlets, Kitchens & Retail Counters (${list.length})
+              Spice Co World Warehouses, Warehouses & Retail Counters (${list.length})
             </div>
             <div style="font-size: 12px; color: #64748b;">
-              Company-owned production base kitchens, delivery hubs, and retail outlets.
+              Company-owned production base warehouses, delivery hubs, and retail outlets.
             </div>
           </div>
-          <button class="btn btn-primary" onclick="window.FCW.openAddOutletModal()">
+          <button class="btn btn-primary" onclick="window.FCW.openAddWarehouseModal()">
             <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"/></svg>
-            Add New Outlet / Branch
+            Add New Warehouse / Trading Location
           </button>
         </div>
         <div class="table-wrapper">
           <table class="data-table">
             <thead>
               <tr>
-                <th>Outlet Code</th>
-                <th>Outlet / Branch Name</th>
-                <th>Facility Type</th>
+                <th>Location Code</th>
+                <th>Warehouse / Trading Location Name</th>
+                <th>Location Type</th>
                 <th>Manager / Incharge</th>
                 <th>Contact Phone</th>
                 <th>Full Physical Address</th>
@@ -786,8 +786,8 @@
                     <td style="color: #475569; max-width: 250px; font-size: 12px;">${o.address || '-'}</td>
                     <td class="text-center"><span class="badge badge-success">${o.status || 'Active'}</span></td>
                     <td class="text-right">
-                      <button class="btn btn-secondary btn-sm" onclick="window.FCW.openEditOutletModal('${o.id}')">Edit</button>
-                      <button class="btn btn-danger btn-sm" onclick="window.FCW.deleteOutlet('${o.id}')">Delete</button>
+                      <button class="btn btn-secondary btn-sm" onclick="window.FCW.openEditWarehouseModal('${o.id}')">Edit</button>
+                      <button class="btn btn-danger btn-sm" onclick="window.FCW.deleteWarehouse('${o.id}')">Delete</button>
                     </td>
                   </tr>
                 `).join('')
@@ -810,10 +810,10 @@
         <div class="table-toolbar">
           <div>
             <div style="font-weight: 700; font-size: 15px; color: var(--primary-dark);">
-              Customers & Food Buyers (${list.length})
+              Customers & Spice Buyers (${list.length})
             </div>
             <div style="font-size: 12px; color: #64748b;">
-              External wholesale restaurants, hotels, corporate catering clients, and supermarket buyers.
+              External wholesale buyers, distributors, institutional buyers, exporters, and supermarket buyers.
             </div>
           </div>
           <button class="btn btn-primary" onclick="window.FCW.openAddCustomerModal()">
@@ -876,7 +876,7 @@
         <div class="table-toolbar">
           <div>
             <div style="font-weight: 700; font-size: 15px; color: var(--primary-dark);">
-              Food Suppliers & Vendors (${list.length})
+              Spice Suppliers & Vendors (${list.length})
             </div>
             <div style="font-size: 12px; color: #64748b;">
               Registered farm growers, packaging vendors, meat suppliers, and utilities (Compulsory address required).
@@ -1025,7 +1025,7 @@
     `;
   }
 
-  // 6. Master: Food Item Categories
+  // 6. Master: Spice Product Categories
   function buildItemCatsTable(query) {
     const list = state.master.itemCategories.filter(c => 
       !query || c.name.toLowerCase().includes(query) || (c.description && c.description.toLowerCase().includes(query))
@@ -1035,11 +1035,11 @@
       <div class="table-card">
         <div class="table-toolbar">
           <div style="font-weight: 700; font-size: 15px; color: var(--primary-dark);">
-            Food Product Master Categories (${list.length})
+            Spice Product Categories (${list.length})
           </div>
           <button class="btn btn-primary" onclick="window.FCW.openAddItemCatModal()">
             <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"/></svg>
-            Add Food Category
+            Add Spice Category
           </button>
         </div>
         <div class="table-wrapper">
@@ -1048,7 +1048,7 @@
               <tr>
                 <th>ID</th>
                 <th>Category Name</th>
-                <th>Culinary Scope</th>
+                <th>Spice Trading Scope</th>
                 <th class="text-right">Actions</th>
               </tr>
             </thead>
@@ -1071,7 +1071,7 @@
     `;
   }
 
-  // 7. Master: Food Items Catalog
+  // 7. Master: Spice Products Catalog
   function buildItemsCatalogTable(query) {
     const list = state.master.items.filter(item => {
       const q = (query || '').toLowerCase();
@@ -1308,7 +1308,7 @@
           </td>
           <td>${formatDate(inv.date)}</td>
           <td>${inv.customerName}</td>
-          <td><span class="badge badge-purple" style="font-size:11px;">📍 ${(inv.outletName || 'Central Kitchen').replace('Food Co World - ', '')}</span></td>
+          <td><span class="badge badge-purple" style="font-size:11px;">📍 ${(inv.outletName || 'Central Warehouse').replace('Spice Co World - ', '')}</span></td>
           <td><span class="badge badge-secondary">${inv.category}</span></td>
           <td class="text-right">${formatCurrency(inv.subTotal)}</td>
           <td class="text-right">${formatCurrency(inv.taxTotal)}</td>
@@ -1353,7 +1353,7 @@
         <td><strong>${exp.id}</strong></td>
         <td>${formatDate(exp.date)}</td>
         <td>${exp.vendorName || 'Operational Bill'}</td>
-        <td><span class="badge badge-purple" style="font-size:11px;">📍 ${(exp.outletName || 'Central Kitchen').replace('Food Co World - ', '')}</span></td>
+        <td><span class="badge badge-purple" style="font-size:11px;">📍 ${(exp.outletName || 'Central Warehouse').replace('Spice Co World - ', '')}</span></td>
         <td><span class="badge badge-secondary">${exp.category}</span></td>
         <td><code>${exp.referenceNo || '-'}</code></td>
         <td>${exp.paymentMethod || 'Bank'}</td>
@@ -1544,12 +1544,12 @@
     container.innerHTML = html;
   }
 
-  function getReportOutletHeaderTitle() {
-    if (!state.selectedOutlet || state.selectedOutlet === 'all') {
-      return "Consolidated (All Outlets & Kitchens)";
+  function getReportWarehouseHeaderTitle() {
+    if (!state.selectedWarehouse || state.selectedWarehouse === 'all') {
+      return "Consolidated (All Warehouses & Trading Locations)";
     }
-    const o = state.master.outlets.find(x => x.id === state.selectedOutlet);
-    return o ? `Outlet Account: ${o.name} [${o.code}]` : "Single Outlet";
+    const o = state.master.outlets.find(x => x.id === state.selectedWarehouse);
+    return o ? `Warehouse Account: ${o.name} [${o.code}]` : "Single Warehouse";
   }
 
   // 1. Profit & Loss Report
@@ -1592,13 +1592,13 @@
           </div>
           <div class="statement-name">Profit & Loss Statement (Income Statement)</div>
           <div class="statement-period">
-            <strong>${getReportOutletHeaderTitle()}</strong> | Reporting Period: FY 2026-27 | Currency: Indian Rupee (₹)
+            <strong>${getReportWarehouseHeaderTitle()}</strong> | Reporting Period: FY 2026-27 | Currency: Indian Rupee (₹)
           </div>
         </div>
 
         <!-- REVENUE -->
         <div class="fs-row section-header">
-          <span>Operating Revenue / Food Sales</span>
+          <span>Operating Revenue / Spice Sales</span>
           <span>Amount (₹)</span>
         </div>
         ${Object.keys(incomeByCategory).length === 0 ? 
@@ -1617,7 +1617,7 @@
 
         <!-- COGS -->
         <div class="fs-row section-header">
-          <span>Cost of Goods Sold (Raw Ingredients, Packaging & Spoilage)</span>
+          <span>Cost of Goods Sold (Raw Spices, Packaging & Spoilage)</span>
           <span>Amount (₹)</span>
         </div>
         ${Object.keys(cogsByCategory).length === 0 ? 
@@ -1835,7 +1835,7 @@
         <div class="statement-title-block">
           <div class="statement-company">${state.company.name}</div>
           <div class="statement-name">Cash Flow Statement</div>
-          <div class="statement-period">${getReportOutletHeaderTitle()}</div>
+          <div class="statement-period">${getReportWarehouseHeaderTitle()}</div>
         </div>
 
         <div class="fs-row section-header">
@@ -1843,11 +1843,11 @@
           <span>Amount (₹)</span>
         </div>
         <div class="fs-row sub-row">
-          <span>Cash received from Food Sales / Customer Receipts</span>
+          <span>Cash received from Spice Sales / Customer Receipts</span>
           <span style="color: #047857;">+${formatCurrency(cashReceipts)}</span>
         </div>
         <div class="fs-row sub-row">
-          <span>Cash paid for Ingredients, Packaging, Staff & Gas</span>
+          <span>Cash paid for Raw Spices, Packaging, Staff & Gas</span>
           <span style="color: #b91c1c;">-${formatCurrency(cashPayments)}</span>
         </div>
         <div class="fs-row sub-total">
@@ -1860,7 +1860,7 @@
           <span>Amount (₹)</span>
         </div>
         <div class="fs-row sub-row">
-          <span>Capital expenditure on Commercial Kitchen Machinery</span>
+          <span>Capital expenditure on Commercial Warehouse Equipment</span>
           <span>₹ 0.00</span>
         </div>
         <div class="fs-row sub-total">
@@ -1889,8 +1889,8 @@
       <div class="financial-statement">
         <div class="statement-title-block">
           <div class="statement-company">${state.company.name}</div>
-          <div class="statement-name">Food VAT & GST Tax Audit Summary</div>
-          <div class="statement-period">${getReportOutletHeaderTitle()} | Company GSTIN: ${state.company.taxNumber}</div>
+          <div class="statement-name">Spice VAT & GST Tax Audit Summary</div>
+          <div class="statement-period">${getReportWarehouseHeaderTitle()} | Company GSTIN: ${state.company.taxNumber}</div>
         </div>
 
         <div class="fs-row section-header">
@@ -1898,11 +1898,11 @@
           <span>Amount (₹)</span>
         </div>
         <div class="fs-row sub-row">
-          <span>Total Output GST Collected on Food Invoices</span>
+          <span>Total Output GST Collected on Spice Invoices</span>
           <span style="font-weight: 600;">${formatCurrency(outputTax)}</span>
         </div>
         <div class="fs-row sub-row">
-          <span>Less: Input Tax Credit (ITC) Paid on Raw Ingredient Bills</span>
+          <span>Less: Input Tax Credit (ITC) Paid on Raw Raw Spice Bills</span>
           <span style="font-weight: 600; color: #047857;">(${formatCurrency(inputTax)})</span>
         </div>
         <div class="fs-row grand-total">
@@ -1913,7 +1913,7 @@
     `;
   }
 
-  // 6. Culinary Expense Analysis
+  // 6. Spice Trading Expense Analysis
   function generateExpenseAnalysisReport() {
     const exps = getFilteredExpenses();
     const catMap = {};
@@ -1928,8 +1928,8 @@
       <div class="financial-statement">
         <div class="statement-title-block">
           <div class="statement-company">${state.company.name}</div>
-          <div class="statement-name">Culinary Cost Center Analysis</div>
-          <div class="statement-period">${getReportOutletHeaderTitle()}</div>
+          <div class="statement-name">Spice Trading Cost Center Analysis</div>
+          <div class="statement-period">${getReportWarehouseHeaderTitle()}</div>
         </div>
 
         <div class="table-wrapper">
@@ -1976,7 +1976,7 @@
     const reportType = state.currentReportType;
     let csvContent = "data:text/csv;charset=utf-8,";
     csvContent += `"${state.company.name} - ${reportType.toUpperCase()} REPORT"\n`;
-    csvContent += `"Outlet Filter:","${getReportOutletHeaderTitle()}"\n`;
+    csvContent += `"Warehouse Filter:","${getReportWarehouseHeaderTitle()}"\n`;
     csvContent += `"Currency:","INR (₹)"\n`;
     csvContent += `"Generated:","${new Date().toLocaleString('en-IN')}"\n\n`;
 
@@ -1988,14 +1988,14 @@
       invs.forEach(i => csvContent += `"Revenue","${i.category}","${i.subTotal}"\n`);
       exps.forEach(e => csvContent += `"Expense","${e.category}","${e.amount}"\n`);
     } else {
-      csvContent += `"ID","Date","Outlet","Party","Category","Total (INR)","Status"\n`;
+      csvContent += `"ID","Date","Warehouse","Party","Category","Total (INR)","Status"\n`;
       invs.forEach(i => csvContent += `"${i.id}","${i.date}","${i.outletName || ''}","${i.customerName}","${i.category}","${i.grandTotal}","${i.status}"\n`);
     }
 
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `FoodCoWorld_${reportType}_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute("download", `SpiceCoWorld_${reportType}_${new Date().toISOString().slice(0, 10)}.csv`);
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -2024,7 +2024,7 @@
   }
 
   function saveCompanySettings() {
-    state.company.name = document.getElementById('company-name-input').value.trim() || 'Food Co World';
+    state.company.name = document.getElementById('company-name-input').value.trim() || 'Spice Co World';
     state.company.currency = document.getElementById('company-currency-input').value.trim() || '₹';
     state.company.taxNumber = document.getElementById('company-tax-input').value.trim();
     state.company.phone = document.getElementById('company-phone-input').value.trim();
@@ -2063,7 +2063,7 @@
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
     const dlAnchor = document.createElement('a');
     dlAnchor.setAttribute("href", dataStr);
-    dlAnchor.setAttribute("download", `FoodCoWorld_Accounting_Backup_${new Date().toISOString().slice(0, 10)}.json`);
+    dlAnchor.setAttribute("download", `SpiceCoWorld_Accounting_Backup_${new Date().toISOString().slice(0, 10)}.json`);
     dlAnchor.click();
     dlAnchor.remove();
     showToast("Complete backup exported safely", "success");
@@ -2099,13 +2099,13 @@
   // MASTER ENTITIES: ADD & EDIT MODAL HANDLERS
   // ==========================================
 
-  // Outlets
-  function openAddOutletModal() {
+  // Warehouses
+  function openAddWarehouseModal() {
     state.editingMaster = { type: 'outlet', id: null };
-    document.getElementById('modal-outlet-title').textContent = "Add Food Co Outlet / Branch";
+    document.getElementById('modal-outlet-title').textContent = "Add Trading Location / Warehouse";
     document.getElementById('new-outlet-name').value = '';
     document.getElementById('new-outlet-code').value = '';
-    document.getElementById('new-outlet-type').value = 'Base Production Kitchen';
+    document.getElementById('new-outlet-type').value = 'Central Spice Warehouse';
     document.getElementById('new-outlet-manager').value = '';
     document.getElementById('new-outlet-phone').value = '';
     document.getElementById('new-outlet-email').value = '';
@@ -2113,11 +2113,11 @@
     openModal('modal-add-outlet');
   }
 
-  function openEditOutletModal(id) {
+  function openEditWarehouseModal(id) {
     const o = state.master.outlets.find(x => x.id === id);
     if (!o) return;
     state.editingMaster = { type: 'outlet', id };
-    document.getElementById('modal-outlet-title').textContent = `Edit Outlet (${o.code})`;
+    document.getElementById('modal-outlet-title').textContent = `Edit Warehouse (${o.code})`;
     document.getElementById('new-outlet-name').value = o.name;
     document.getElementById('new-outlet-code').value = o.code;
     document.getElementById('new-outlet-type').value = o.type;
@@ -2128,7 +2128,7 @@
     openModal('modal-add-outlet');
   }
 
-  function submitOutlet() {
+  function submitWarehouse() {
     const name = document.getElementById('new-outlet-name').value.trim();
     const code = document.getElementById('new-outlet-code').value.trim();
     const type = document.getElementById('new-outlet-type').value;
@@ -2137,7 +2137,7 @@
     const email = document.getElementById('new-outlet-email').value.trim();
     const address = document.getElementById('new-outlet-address').value.trim();
 
-    if (!name || !code) return showToast("Outlet Name and Branch Code are required", "error");
+    if (!name || !code) return showToast("Warehouse Name and Branch Code are required", "error");
 
     if (state.editingMaster.id) {
       const o = state.master.outlets.find(x => x.id === state.editingMaster.id);
@@ -2149,7 +2149,7 @@
         o.phone = phone;
         o.email = email;
         o.address = address;
-        showToast(`Outlet "${name}" updated`, "success");
+        showToast(`Warehouse "${name}" updated`, "success");
       }
     } else {
       state.master.outlets.push({
@@ -2163,30 +2163,30 @@
         address,
         status: "Active"
       });
-      showToast(`Outlet "${name}" created`, "success");
+      showToast(`Warehouse "${name}" created`, "success");
     }
 
     saveData();
     closeAllModals();
-    populateOutletSelectors();
+    populateWarehouseSelectors();
     renderCurrentMasterTab();
   }
 
-  function deleteOutlet(id) {
+  function deleteWarehouse(id) {
     if (!confirm("Are you sure you want to delete this outlet?")) return;
     state.master.outlets = state.master.outlets.filter(o => o.id !== id);
     saveData();
-    populateOutletSelectors();
+    populateWarehouseSelectors();
     renderCurrentMasterTab();
-    showToast("Outlet deleted", "warning");
+    showToast("Warehouse deleted", "warning");
   }
 
   // Customers (Clients) - Optional Address
   function openAddCustomerModal() {
     state.editingMaster = { type: 'customer', id: null };
-    document.getElementById('modal-customer-title').textContent = "Add Food Client / Customer";
+    document.getElementById('modal-customer-title').textContent = "Add Customer / Customer";
     document.getElementById('new-cust-name').value = '';
-    document.getElementById('new-cust-type').value = 'Wholesale Restaurant';
+    document.getElementById('new-cust-type').value = 'Spice Wholesaler';
     document.getElementById('new-cust-limit').value = '300000';
     document.getElementById('new-cust-contact').value = '';
     document.getElementById('new-cust-phone').value = '';
@@ -2263,9 +2263,9 @@
   // Suppliers / Vendors - COMPULSORY ADDRESS
   function openAddVendorModal() {
     state.editingMaster = { type: 'vendor', id: null };
-    document.getElementById('modal-vendor-title').textContent = "Add Food Supplier / Vendor";
+    document.getElementById('modal-vendor-title').textContent = "Add Spice Supplier / Vendor";
     document.getElementById('new-ven-name').value = '';
-    document.getElementById('new-ven-cat').value = 'Raw Ingredients';
+    document.getElementById('new-ven-cat').value = 'Raw Spices';
     document.getElementById('new-ven-taxid').value = '';
     document.getElementById('new-ven-terms').value = '30';
     document.getElementById('new-ven-contact').value = '';
@@ -2470,10 +2470,10 @@
     showToast("Category deleted", "warning");
   }
 
-  // Food Item Categories Edit/Add
+  // Spice Product Categories Edit/Add
   function openAddItemCatModal() {
     state.editingMaster = { type: 'itemCat', id: null };
-    document.getElementById('modal-item-cat-title').textContent = "Add Food Category";
+    document.getElementById('modal-item-cat-title').textContent = "Add Spice Category";
     document.getElementById('new-item-cat-name').value = '';
     document.getElementById('new-item-cat-desc').value = '';
     openModal('modal-add-item-cat');
@@ -2483,7 +2483,7 @@
     const c = state.master.itemCategories.find(x => x.id === id);
     if (!c) return;
     state.editingMaster = { type: 'itemCat', id };
-    document.getElementById('modal-item-cat-title').textContent = `Edit Food Category: ${c.name}`;
+    document.getElementById('modal-item-cat-title').textContent = `Edit Spice Category: ${c.name}`;
     document.getElementById('new-item-cat-name').value = c.name;
     document.getElementById('new-item-cat-desc').value = c.description || '';
     openModal('modal-add-item-cat');
@@ -2492,7 +2492,7 @@
   function submitItemCategory() {
     const name = document.getElementById('new-item-cat-name').value.trim();
     const desc = document.getElementById('new-item-cat-desc').value.trim();
-    if (!name) return showToast("Food category name is required", "error");
+    if (!name) return showToast("Spice category name is required", "error");
 
     if (state.editingMaster.id) {
       const c = state.master.itemCategories.find(x => x.id === state.editingMaster.id);
@@ -2507,7 +2507,7 @@
         name,
         description: desc
       });
-      showToast(`Food category "${name}" added`, "success");
+      showToast(`Spice category "${name}" added`, "success");
     }
 
     saveData();
@@ -2523,10 +2523,10 @@
     showToast("Category deleted", "warning");
   }
 
-  // Food Items Catalog Edit/Add
+  // Spice Products Catalog Edit/Add
   function openAddItemModal() {
     state.editingMaster = { type: 'item', id: null };
-    document.getElementById('modal-item-title').textContent = "Add Food Item to Catalog";
+    document.getElementById('modal-item-title').textContent = "Add Spice Product to Catalog";
     document.getElementById('new-item-name').value = '';
     document.getElementById('new-item-sku').value = '';
     document.getElementById('new-item-unit').value = 'Box';
@@ -2542,7 +2542,7 @@
     const item = state.master.items.find(x => x.id === id);
     if (!item) return;
     state.editingMaster = { type: 'item', id };
-    document.getElementById('modal-item-title').textContent = `Edit Food Item: ${item.name}`;
+    document.getElementById('modal-item-title').textContent = `Edit Spice Product: ${item.name}`;
     document.getElementById('new-item-name').value = item.name;
     document.getElementById('new-item-sku').value = item.sku;
     document.getElementById('new-item-category').value = item.category;
@@ -2555,7 +2555,7 @@
     openModal('modal-add-item');
   }
 
-  function submitFoodItem() {
+  function submitSpiceItem() {
     const name = document.getElementById('new-item-name').value.trim();
     const sku = document.getElementById('new-item-sku').value.trim();
     const category = document.getElementById('new-item-category').value;
@@ -2580,7 +2580,7 @@
         item.taxRate = tax;
         item.stockQty = stock;
         item.image = image;
-        showToast(`Food item "${name}" updated`, "success");
+        showToast(`Spice item "${name}" updated`, "success");
       }
     } else {
       state.master.items.push({
@@ -2596,7 +2596,7 @@
         reorderLevel: 15,
         image
       });
-      showToast(`Food item "${name}" added`, "success");
+      showToast(`Spice item "${name}" added`, "success");
     }
 
     saveData();
@@ -2605,11 +2605,11 @@
   }
 
   function deleteItem(id) {
-    if (!confirm("Delete food item?")) return;
+    if (!confirm("Delete spice product?")) return;
     state.master.items = state.master.items.filter(i => i.id !== id);
     saveData();
     renderCurrentMasterTab();
-    showToast("Food item deleted", "warning");
+    showToast("Spice item deleted", "warning");
   }
 
   // Chart of Accounts Edit/Add
@@ -2811,7 +2811,7 @@
   // ==========================================
   function openNewInvoiceModal() {
     state.editingInvoiceId = null;
-    document.getElementById('modal-invoice-title').textContent = "Create Food Sales Invoice";
+    document.getElementById('modal-invoice-title').textContent = "Create Spice Sales Invoice";
     document.getElementById('inv-edit-reason-container').style.display = 'none';
     document.getElementById('inv-edit-reason').value = '';
 
@@ -2833,7 +2833,7 @@
   }
 
   function populateInvoiceModalDropdowns(existingInvoice = null) {
-    // Outlets dropdown
+    // Warehouses dropdown
     const outletSelect = document.getElementById('inv-outlet-select');
     if (outletSelect) {
       outletSelect.innerHTML = state.master.outlets.map(o => `
@@ -2841,8 +2841,8 @@
           ${o.name} [${o.code}]
         </option>
       `).join('');
-      if (!existingInvoice && state.selectedOutlet !== 'all') {
-        outletSelect.value = state.selectedOutlet;
+      if (!existingInvoice && state.selectedWarehouse !== 'all') {
+        outletSelect.value = state.selectedWarehouse;
       }
     }
 
@@ -2892,7 +2892,7 @@
           <tr>
             <td>
               <select class="line-item-select form-select">
-                <option value="">-- Choose Food Item --</option>
+                <option value="">-- Choose Spice Product --</option>
                 ${state.master.items.map(mItem => `
                   <option value="${mItem.id}" data-price="${mItem.salePrice}" data-tax="${mItem.taxRate}" ${mItem.id === item.itemId ? 'selected' : ''}>
                     ${mItem.name} (${mItem.sku}) - ${formatCurrency(mItem.salePrice)}
@@ -2924,7 +2924,7 @@
     } else {
       if (dateInput) dateInput.value = new Date().toISOString().slice(0, 10);
       if (dueDateInput) dueDateInput.value = new Date(Date.now() + 15 * 86400000).toISOString().slice(0, 10);
-      if (notesInput) notesInput.value = 'Thank you for choosing Food Co World!';
+      if (notesInput) notesInput.value = 'Thank you for choosing Spice Co World!';
 
       const tbody = document.getElementById('invoice-line-items-tbody');
       if (tbody) {
@@ -2945,7 +2945,7 @@
     return `
       <td>
         <select class="line-item-select form-select">
-          <option value="">-- Choose Food Item --</option>
+          <option value="">-- Choose Spice Product --</option>
           ${itemOptions}
         </select>
       </td>
@@ -3067,7 +3067,7 @@
     });
 
     if (items.length === 0) {
-      return showToast("Please add at least one food item to the invoice", "error");
+      return showToast("Please add at least one spice product to the invoice", "error");
     }
 
     const grandTotal = subTotal + taxTotal;
@@ -3123,7 +3123,7 @@
       date,
       dueDate,
       outletId: outlet ? outlet.id : "OUT-01",
-      outletName: outlet ? outlet.name : "Central Kitchen",
+      outletName: outlet ? outlet.name : "Central Warehouse",
       customerId,
       customerName: customer.name,
       category,
@@ -3133,7 +3133,7 @@
       grandTotal,
       status: "Pending",
       paymentMethod,
-      notes: notes || "Thank you for partnering with Food Co World!",
+      notes: notes || "Thank you for partnering with Spice Co World!",
       editHistory: []
     };
 
@@ -3145,7 +3145,7 @@
 
     saveData();
     closeAllModals();
-    showToast(`Invoice ${newInvId} created successfully for ${outlet ? outlet.name : 'Outlet'}!`, "success");
+    showToast(`Invoice ${newInvId} created successfully for ${outlet ? outlet.name : 'Warehouse'}!`, "success");
     refreshAllViews();
   }
 
@@ -3177,7 +3177,7 @@
     showToast(`Invoice ${id} deleted`, "warning");
   }
 
-  // Invoice Preview (with Brand Logo, Outlet & Edit Audit History)
+  // Invoice Preview (with Brand Logo, Warehouse & Edit Audit History)
   function previewInvoice(id) {
     const inv = state.invoices.find(i => i.id === id);
     if (!inv) return;
@@ -3234,8 +3234,8 @@
           <div style="font-size: 12px; color: #475569;">Contact: ${customer ? customer.phone || '-' : '-'}</div>
         </div>
         <div style="background: #f8fafc; padding: 14px; border-radius: 8px;">
-          <div style="font-size: 11px; text-transform: uppercase; color: #64748b; font-weight: 700;">Dispatched From Outlet:</div>
-          <div style="font-size: 15px; font-weight: 700; color: #064e3b; margin-top: 2px;">${inv.outletName || 'Central Kitchen'}</div>
+          <div style="font-size: 11px; text-transform: uppercase; color: #64748b; font-weight: 700;">Dispatched From Warehouse:</div>
+          <div style="font-size: 15px; font-weight: 700; color: #064e3b; margin-top: 2px;">${inv.outletName || 'Central Warehouse'}</div>
           <div style="font-size: 12px; color: #475569;">Payment Method: ${inv.paymentMethod}</div>
           <div style="font-size: 12px; color: #475569;">Sales Stream: ${inv.category}</div>
         </div>
@@ -3244,7 +3244,7 @@
       <table class="data-table" style="margin-bottom: 20px;">
         <thead>
           <tr>
-            <th>Food Item / Description</th>
+            <th>Spice Product / Description</th>
             <th class="text-center" style="width: 80px;">Qty</th>
             <th class="text-right" style="width: 120px;">Unit Rate (₹)</th>
             <th class="text-center" style="width: 80px;">GST %</th>
@@ -3271,7 +3271,7 @@
             <span>${formatCurrency(inv.subTotal)}</span>
           </div>
           <div style="display: flex; justify-content: space-between; padding: 4px 0;">
-            <span>Food GST:</span>
+            <span>Spice GST:</span>
             <span>${formatCurrency(inv.taxTotal)}</span>
           </div>
           <div style="display: flex; justify-content: space-between; padding: 8px 0; border-top: 2px solid #0f172a; font-weight: 800; font-size: 17px; color: #065f46;">
@@ -3295,13 +3295,13 @@
   // EXPENSES SUBMISSION (WITH OUTLET TAGGING)
   // ==========================================
   function openNewExpenseModal() {
-    // Populate Outlets
+    // Populate Warehouses
     const outSelect = document.getElementById('exp-outlet-select');
     if (outSelect) {
       outSelect.innerHTML = state.master.outlets.map(o => `
         <option value="${o.id}">${o.name} [${o.code}]</option>
       `).join('');
-      if (state.selectedOutlet !== 'all') outSelect.value = state.selectedOutlet;
+      if (state.selectedWarehouse !== 'all') outSelect.value = state.selectedWarehouse;
     }
 
     // Populate Vendors
@@ -3363,9 +3363,9 @@
       id: newExpId,
       date,
       outletId: outlet ? outlet.id : "OUT-01",
-      outletName: outlet ? outlet.name : "Central Kitchen",
+      outletName: outlet ? outlet.name : "Central Warehouse",
       vendorId: vendor ? vendor.id : null,
-      vendorName: vendor ? vendor.name : "Direct Outlet Operational Expense",
+      vendorName: vendor ? vendor.name : "Direct Warehouse Operational Expense",
       category,
       accountCode: "5010",
       paymentAccount: payAccount,
@@ -3383,7 +3383,7 @@
 
     saveData();
     closeAllModals();
-    showToast(`Expense ${newExpId} of ${formatCurrency(total)} recorded for ${outlet ? outlet.name : 'Outlet'}`, "success");
+    showToast(`Expense ${newExpId} of ${formatCurrency(total)} recorded for ${outlet ? outlet.name : 'Warehouse'}`, "success");
     refreshAllViews();
   }
 
@@ -3619,7 +3619,7 @@
   window.FCW = {
     switchView,
     switchMasterTab,
-    setOutletFilter,
+    setWarehouseFilter,
     resetToDefaults,
     saveCompanySettings,
     uploadLogoFile,
@@ -3627,11 +3627,11 @@
     backupJSON,
     restoreJSON,
 
-    // Outlets CRUD
-    openAddOutletModal,
-    openEditOutletModal,
-    submitOutlet,
-    deleteOutlet,
+    // Warehouses CRUD
+    openAddWarehouseModal,
+    openEditWarehouseModal,
+    submitWarehouse,
+    deleteWarehouse,
 
     // Customers CRUD (Optional address)
     openAddCustomerModal,
@@ -3657,16 +3657,16 @@
     submitIncomeCategory,
     deleteIncomeCat,
 
-    // Food Categories CRUD
+    // Spice Categories CRUD
     openAddItemCatModal,
     openEditItemCatModal,
     submitItemCategory,
     deleteItemCat,
 
-    // Food Items CRUD
+    // Spice Products CRUD
     openAddItemModal,
     openEditItemModal,
-    submitFoodItem,
+    submitSpiceItem,
     deleteItem,
 
     // Accounts CRUD
@@ -3708,7 +3708,7 @@
         row.remove();
         calculateInvoiceModalTotals();
       } else {
-        showToast("Invoice must contain at least 1 food line item", "warning");
+        showToast("Invoice must contain at least 1 spice line item", "warning");
       }
     },
 

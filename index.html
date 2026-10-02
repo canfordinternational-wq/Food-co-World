@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Food Co World | Accounting, Outlets & Financial Portal</title>
+  <title>Spice Co World | Raw Spice Trading, Accounting & Inventory</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌶️</text></svg>">
 </head>
 <body>
 
@@ -20,8 +20,8 @@
           <div class="brand-logo">FC</div>
         </div>
         <div class="brand-info">
-          <h2>Food Co World</h2>
-          <span>Accounting & Outlets (₹)</span>
+          <h2>Spice Co World</h2>
+          <span>Accounting & Warehouses (₹)</span>
         </div>
       </div>
 
@@ -35,7 +35,7 @@
         <div class="nav-category">Master Configuration</div>
         <a class="nav-item" data-view="master">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-          Master & Outlets
+          Master & Warehouses
           <span class="nav-badge">Master</span>
         </a>
 
@@ -84,13 +84,13 @@
         <div class="topbar-left">
           <div>
             <h1 class="page-title" id="current-page-title">Executive Dashboard</h1>
-            <div class="page-subtitle">Food Co World Financial & Multi-Outlet Accounts System</div>
+            <div class="page-subtitle">Spice Co World Raw Spice Trading & Accounting System</div>
           </div>
         </div>
 
         <div class="topbar-right">
-          <!-- Multi-Outlet Separate Accounts Selector -->
-          <div class="outlet-selector-wrapper" title="Select Outlet / Branch to view and record accounts separately">
+          <!-- Multi-Warehouse Separate Accounts Selector -->
+          <div class="outlet-selector-wrapper" title="Select Warehouse / Trading Location to view and record accounts separately">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <select id="topbar-outlet-selector" class="outlet-selector">
               <!-- Populated by JS -->
@@ -103,7 +103,7 @@
           </button>
           <button class="btn btn-primary" onclick="window.FCW.openNewInvoiceModal()">
             <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"/></svg>
-            New Food Invoice
+            New Spice Invoice
           </button>
         </div>
       </header>
@@ -116,18 +116,18 @@
           <div class="kpi-grid">
             <div class="kpi-card emerald">
               <div class="kpi-header">
-                <span class="kpi-title">Food Revenue</span>
+                <span class="kpi-title">Spice Sales</span>
                 <div class="kpi-icon-wrapper">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
                 </div>
               </div>
               <div class="kpi-value" id="kpi-revenue">₹ 0.00</div>
-              <div class="kpi-subtitle"><span>↑ From Sales & Catering Invoices</span></div>
+              <div class="kpi-subtitle"><span>↑ From Spice Sales Invoices</span></div>
             </div>
 
             <div class="kpi-card rose">
               <div class="kpi-header">
-                <span class="kpi-title">Culinary Expenses</span>
+                <span class="kpi-title">Spice Trading Expenses</span>
                 <div class="kpi-icon-wrapper" style="background:#fee2e2; color:#b91c1c;">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>
                 </div>
@@ -144,7 +144,7 @@
                 </div>
               </div>
               <div class="kpi-value" id="kpi-profit">₹ 0.00</div>
-              <div class="kpi-subtitle"><span>Outlet EBITDA margin</span></div>
+              <div class="kpi-subtitle"><span>Warehouse EBITDA margin</span></div>
             </div>
 
             <div class="kpi-card blue">
@@ -189,7 +189,7 @@
               <div class="card-header">
                 <div class="card-title">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
-                  Culinary Expenses by Category
+                  Spice Trading Expenses by Category
                 </div>
                 <span class="badge badge-secondary">Share %</span>
               </div>
@@ -218,7 +218,7 @@
                     <th>Date</th>
                     <th>Type</th>
                     <th>Client / Vendor</th>
-                    <th>Outlet / Branch</th>
+                    <th>Warehouse / Trading Location</th>
                     <th>Category</th>
                     <th class="text-right">Amount (₹)</th>
                     <th class="text-center">Status</th>
@@ -236,18 +236,18 @@
         <section id="view-master" class="portal-view">
           <div style="margin-bottom: 20px;">
             <p style="color: var(--text-muted); font-size: 13.5px;">
-              Maintain your central accounting parameters. Add, edit, and configure internal production outlets/kitchens, clients, suppliers (with compulsory address), food catalogs, and chart of accounts.
+              Maintain your central accounting parameters. Add, edit, and configure warehouses/trading locations, customers, suppliers (with compulsory address), spice product catalogs, and chart of accounts.
             </p>
           </div>
 
           <!-- Master Category Tabs -->
           <div class="master-nav-tabs">
-            <button class="master-tab-btn active" data-tab="outlets">🏢 Outlets & Kitchens</button>
-            <button class="master-tab-btn" data-tab="customers">👥 Clients & Buyers</button>
+            <button class="master-tab-btn active" data-tab="outlets">🏢 Warehouses & Trading Locations</button>
+            <button class="master-tab-btn" data-tab="customers">👥 Customers & Buyers</button>
             <button class="master-tab-btn" data-tab="vendors">🚚 Suppliers & Vendors</button>
             <button class="master-tab-btn" data-tab="expenseCats">Expense Categories</button>
             <button class="master-tab-btn" data-tab="incomeCats">Income Categories</button>
-            <button class="master-tab-btn" data-tab="itemCats">Food Categories</button>
+            <button class="master-tab-btn" data-tab="itemCats">Spice Categories</button>
             <button class="master-tab-btn" data-tab="items">Indian Spice Products</button>
             <button class="master-tab-btn" data-tab="coa">Chart of Accounts</button>
             <button class="master-tab-btn" data-tab="taxes">Tax Rates</button>
@@ -278,7 +278,7 @@
               </div>
               <button class="btn btn-primary" onclick="window.FCW.openNewInvoiceModal()">
                 <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"/></svg>
-                Create Food Sales Invoice
+                Create Spice Sales Invoice
               </button>
             </div>
             <div class="table-wrapper">
@@ -288,10 +288,10 @@
                     <th>Invoice #</th>
                     <th>Date</th>
                     <th>Billed Client</th>
-                    <th>Outlet / Branch</th>
+                    <th>Warehouse / Trading Location</th>
                     <th>Category</th>
                     <th class="text-right">Subtotal (₹)</th>
-                    <th class="text-right">Food GST (₹)</th>
+                    <th class="text-right">GST (₹)</th>
                     <th class="text-right">Grand Total (₹)</th>
                     <th class="text-center">Status</th>
                     <th class="text-right">Actions</th>
@@ -325,7 +325,7 @@
                     <th>Expense #</th>
                     <th>Date</th>
                     <th>Supplier / Payee</th>
-                    <th>Outlet / Branch</th>
+                    <th>Warehouse / Trading Location</th>
                     <th>Expense Category</th>
                     <th>Ref Voucher</th>
                     <th>Payment Mode</th>
@@ -415,7 +415,7 @@
         <section id="view-reports" class="portal-view">
           <div class="report-header-banner">
             <div>
-              <h3>Food Co World Financial Statements & Reports</h3>
+              <h3>Spice Co World Financial Statements & Reports</h3>
               <p>Generate formal Profit & Loss statements, Balance Sheets, and Tax Audits filtered by outlet or consolidated.</p>
             </div>
 
@@ -425,8 +425,8 @@
                 <option value="balance-sheet">Balance Sheet (Financial Position)</option>
                 <option value="trial-balance">Trial Balance Audit</option>
                 <option value="cash-flow">Cash Flow Statement</option>
-                <option value="tax-report">Food VAT / GST Tax Summary</option>
-                <option value="expense-analysis">Culinary Cost Center Analysis</option>
+                <option value="tax-report">Spice GST Tax Summary</option>
+                <option value="expense-analysis">Spice Trading Cost Center Analysis</option>
               </select>
 
               <select id="report-range-select">
@@ -533,7 +533,7 @@
                 <input type="file" id="restore-file-input" style="display:none;" accept=".json" onchange="window.FCW.restoreJSON(this.files[0])">
               </label>
 
-              <button class="btn btn-danger" onclick="if(confirm('Reset all categories, outlets, and accounts back to Food Co World sample data?')) window.FCW.resetToDefaults(true);">
+              <button class="btn btn-danger" onclick="if(confirm('Reset all categories, outlets, and accounts back to Spice Co World raw-spice sample data?')) window.FCW.resetToDefaults(true);">
                 Reset to Default Sample Data
               </button>
             </div>
@@ -548,35 +548,36 @@
   <!-- MODALS FOR MASTER CATEGORIES & ENTRIES (ADD & EDIT)  -->
   <!-- ==================================================== -->
 
-  <!-- Modal: Add/Edit Outlet (Branches & Kitchens) -->
+  <!-- Modal: Add/Edit Warehouse (Branches & Warehouses) -->
   <div id="modal-add-outlet" class="modal-overlay">
     <div class="modal-content modal-lg">
       <div class="modal-header">
-        <h3 id="modal-outlet-title">Add Food Co Outlet / Branch</h3>
+        <h3 id="modal-outlet-title">Add Trading Location / Warehouse</h3>
         <button class="modal-close-btn">&times;</button>
       </div>
       <div class="modal-body">
         <div class="form-grid">
           <div class="form-group col-span-2">
-            <label class="form-label">Outlet / Branch Name <span class="req">*</span></label>
-            <input type="text" id="new-outlet-name" class="form-input" placeholder="e.g. Food Co World - Bandra Gourmet Outlet">
+            <label class="form-label">Warehouse / Trading Location Name <span class="req">*</span></label>
+            <input type="text" id="new-outlet-name" class="form-input" placeholder="e.g. Spice Co World - Trading Warehouse">
           </div>
           <div class="form-group">
-            <label class="form-label">Outlet Code <span class="req">*</span></label>
+            <label class="form-label">Location Code <span class="req">*</span></label>
             <input type="text" id="new-outlet-code" class="form-input" placeholder="e.g. BGO-02 or CBK-01">
           </div>
           <div class="form-group">
-            <label class="form-label">Facility Type</label>
+            <label class="form-label">Location Type</label>
             <select id="new-outlet-type" class="form-select">
-              <option value="Base Production Kitchen">Base Production Kitchen</option>
-              <option value="Retail & Dine-in Kiosk">Retail & Dine-in Kiosk</option>
-              <option value="Delivery Hub & Cloud Kitchen">Delivery Hub & Cloud Kitchen</option>
-              <option value="Corporate Cafeteria Kiosk">Corporate Cafeteria Kiosk</option>
+              <option value="Central Spice Warehouse">Central Spice Warehouse</option>
+              <option value="Trading Warehouse">Trading Warehouse</option>
+              <option value="Spice Dispatch Warehouse">Spice Dispatch Warehouse</option>
+              <option value="Secondary Trading Warehouse">Secondary Trading Warehouse</option>
+              <option value="Collection / Storage Point">Collection / Storage Point</option>
             </select>
           </div>
           <div class="form-group">
-            <label class="form-label">Branch Manager / Chef Incharge</label>
-            <input type="text" id="new-outlet-manager" class="form-input" placeholder="e.g. Chef Rahul Nair">
+            <label class="form-label">Location Manager / Incharge</label>
+            <input type="text" id="new-outlet-manager" class="form-input" placeholder="e.g. Warehouse Manager">
           </div>
           <div class="form-group">
             <label class="form-label">Contact Phone</label>
@@ -584,17 +585,17 @@
           </div>
           <div class="form-group col-span-2">
             <label class="form-label">Branch Email</label>
-            <input type="email" id="new-outlet-email" class="form-input" placeholder="outlet@foodcoworld.com">
+            <input type="email" id="new-outlet-email" class="form-input" placeholder="outlet@spicecoworld.com">
           </div>
           <div class="form-group col-span-2">
             <label class="form-label">Physical Street Address</label>
-            <textarea id="new-outlet-address" class="form-textarea" placeholder="Complete address of kitchen/outlet premises..."></textarea>
+            <textarea id="new-outlet-address" class="form-textarea" placeholder="Complete address of warehouse/storage premises..."></textarea>
           </div>
         </div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
-        <button class="btn btn-primary" onclick="window.FCW.submitOutlet()">Save Outlet</button>
+        <button class="btn btn-primary" onclick="window.FCW.submitWarehouse()">Save Warehouse</button>
       </div>
     </div>
   </div>
@@ -603,21 +604,21 @@
   <div id="modal-add-customer" class="modal-overlay">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 id="modal-customer-title">Add Food Client / Customer</h3>
+        <h3 id="modal-customer-title">Add Customer / Customer</h3>
         <button class="modal-close-btn">&times;</button>
       </div>
       <div class="modal-body">
         <div class="form-grid">
           <div class="form-group col-span-2">
-            <label class="form-label">Client / Restaurant / Buyer Name <span class="req">*</span></label>
+            <label class="form-label">Client / Buyer / Distributor Name <span class="req">*</span></label>
             <input type="text" id="new-cust-name" class="form-input" placeholder="e.g. The Grand Royal Bistro">
           </div>
           <div class="form-group">
             <label class="form-label">Client Type</label>
             <select id="new-cust-type" class="form-select">
-              <option value="Wholesale Restaurant">Wholesale Restaurant</option>
-              <option value="Wholesale Cafe">Wholesale Cafe</option>
-              <option value="Corporate Catering">Corporate Catering</option>
+              <option value="Spice Wholesaler">Spice Wholesaler</option>
+              <option value="Spice Distributor">Spice Distributor</option>
+              <option value="Institutional Buyer">Institutional Buyer</option>
               <option value="Retail Distributor">Supermarket / Retail Chain</option>
               <option value="Direct Consumer">Direct Retail / Event Client</option>
             </select>
@@ -655,7 +656,7 @@
   <div id="modal-add-vendor" class="modal-overlay">
     <div class="modal-content modal-lg">
       <div class="modal-header">
-        <h3 id="modal-vendor-title">Add Food Supplier / Vendor</h3>
+        <h3 id="modal-vendor-title">Add Spice Supplier / Vendor</h3>
         <button class="modal-close-btn">&times;</button>
       </div>
       <div class="modal-body">
@@ -667,10 +668,10 @@
           <div class="form-group">
             <label class="form-label">Supply Category</label>
             <select id="new-ven-cat" class="form-select">
-              <option value="Raw Ingredients">Raw Ingredients</option>
+              <option value="Raw Spices">Raw Spices</option>
               <option value="Packaging & Disposables">Packaging & Disposables</option>
-              <option value="Kitchen Utilities">Kitchen Utilities</option>
-              <option value="Kitchen Machinery">Kitchen Machinery</option>
+              <option value="Warehouse Utilities">Warehouse Utilities</option>
+              <option value="Warehouse Equipment">Warehouse Equipment</option>
               <option value="Facility & Services">Facility & Services</option>
             </select>
           </div>
@@ -696,7 +697,7 @@
           </div>
           <div class="form-group col-span-2" style="background:#fef2f2; padding:12px; border-radius:8px; border:1px solid #fecaca;">
             <label class="form-label" style="color:#991b1b;">
-              Registered Supplier Address <span class="req">* (Compulsory for Food Safety Compliance)</span>
+              Registered Supplier Address <span class="req">* (Compulsory for Spice Safety Compliance)</span>
             </label>
             <textarea id="new-ven-address" class="form-textarea" placeholder="Complete registered farm / office address is mandatory..."></textarea>
           </div>
@@ -729,7 +730,7 @@
           <div class="form-group">
             <label class="form-label">Expense Classification</label>
             <select id="new-exp-cat-type" class="form-select">
-              <option value="COGS">Cost of Goods Sold (COGS - Ingredients / Packaging)</option>
+              <option value="COGS">Cost of Goods Sold (COGS - Raw Spices / Packaging)</option>
               <option value="Operating">Operating Expense (Rent / Utilities / Wages)</option>
             </select>
           </div>
@@ -776,11 +777,11 @@
     </div>
   </div>
 
-  <!-- Modal: Add/Edit Food Category -->
+  <!-- Modal: Add/Edit Spice Category -->
   <div id="modal-add-item-cat" class="modal-overlay">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 id="modal-item-cat-title">Add Food Category</h3>
+        <h3 id="modal-item-cat-title">Add Spice Category</h3>
         <button class="modal-close-btn">&times;</button>
       </div>
       <div class="modal-body">
@@ -790,29 +791,29 @@
             <input type="text" id="new-item-cat-name" class="form-input">
           </div>
           <div class="form-group col-span-2">
-            <label class="form-label">Culinary Description</label>
+            <label class="form-label">Spice Trading Description</label>
             <textarea id="new-item-cat-desc" class="form-textarea"></textarea>
           </div>
         </div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
-        <button class="btn btn-primary" onclick="window.FCW.submitItemCategory()">Save Food Category</button>
+        <button class="btn btn-primary" onclick="window.FCW.submitItemCategory()">Save Spice Category</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal: Add/Edit Food Item in Catalog -->
+  <!-- Modal: Add/Edit Spice Product in Catalog -->
   <div id="modal-add-item" class="modal-overlay">
     <div class="modal-content modal-lg">
       <div class="modal-header">
-        <h3 id="modal-item-title">Add Food Item to Catalog</h3>
+        <h3 id="modal-item-title">Add Spice Product to Catalog</h3>
         <button class="modal-close-btn">&times;</button>
       </div>
       <div class="modal-body">
         <div class="form-grid">
           <div class="form-group">
-            <label class="form-label">Food Item Name <span class="req">*</span></label>
+            <label class="form-label">Spice Product Name <span class="req">*</span></label>
             <input type="text" id="new-item-name" class="form-input">
           </div>
           <div class="form-group">
@@ -822,16 +823,13 @@
           <div class="form-group">
             <label class="form-label">Category</label>
             <select id="new-item-category" class="form-select">
-              <option value="Bakery & Artisan Bread">Bakery & Artisan Bread</option>
-              <option value="Meat, Poultry & Seafood">Meat, Poultry & Seafood</option>
-              <option value="Dairy, Cheeses & Butter">Dairy, Cheeses & Butter</option>
-              <option value="Organic Produce & Greens">Organic Produce & Greens</option>
-              <option value="Grains, Spices & Dry Staples">Grains, Spices & Dry Staples</option>
-              <option value="Indian Spices">Indian Spices</option>
-              <option value="Indian Spice Blends">Indian Spice Blends</option>
-              <option value="Ready-to-Eat Gourmet Meals">Ready-to-Eat Gourmet Meals</option>
-              <option value="Specialty Beverages & Juices">Specialty Beverages & Juices</option>
-              <option value="Eco Packaging & Disposables">Eco Packaging & Disposables</option>
+              <option value="Whole Spices">Whole Spices</option>
+              <option value="Spice Seeds">Spice Seeds</option>
+              <option value="Dried Chillies">Dried Chillies</option>
+              <option value="Roots & Dried Botanicals">Roots & Dried Botanicals</option>
+              <option value="Premium Spices">Premium Spices</option>
+              <option value="Other Raw Spices">Other Raw Spices</option>
+              <option value="Other Raw Spices">Other Raw Spices</option>
             </select>
           </div>
           <div class="form-group">
@@ -863,7 +861,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
-        <button class="btn btn-primary" onclick="window.FCW.submitFoodItem()">Save Food Item</button>
+        <button class="btn btn-primary" onclick="window.FCW.submitSpiceItem()">Save Spice Product</button>
       </div>
     </div>
   </div>
@@ -923,7 +921,7 @@
         <div class="form-grid">
           <div class="form-group col-span-2">
             <label class="form-label">Tax Name <span class="req">*</span></label>
-            <input type="text" id="new-tax-name" class="form-input" placeholder="e.g. Standard Food GST (5%)">
+            <input type="text" id="new-tax-name" class="form-input" placeholder="e.g. GST 5% - Configure (5%)">
           </div>
           <div class="form-group">
             <label class="form-label">Rate (%) <span class="req">*</span></label>
@@ -968,11 +966,11 @@
     </div>
   </div>
 
-  <!-- Modal: Create / Edit Food Invoice (WITH REASON FIELD) -->
+  <!-- Modal: Create / Edit Spice Invoice (WITH REASON FIELD) -->
   <div id="modal-new-invoice" class="modal-overlay">
     <div class="modal-content modal-lg">
       <div class="modal-header">
-        <h3 id="modal-invoice-title">Create Food Sales Invoice</h3>
+        <h3 id="modal-invoice-title">Create Spice Sales Invoice</h3>
         <button class="modal-close-btn">&times;</button>
       </div>
       <div class="modal-body">
@@ -981,12 +979,12 @@
           <label class="form-label" style="color:#92400e; font-weight:700;">
             Reason for Modifying Invoice <span class="req">* (Mandatory for audit trail)</span>
           </label>
-          <input type="text" id="inv-edit-reason" class="form-input" placeholder="Explain why this invoice is being modified (e.g. Dispatched 5 extra loaves as per kitchen receipt)...">
+          <input type="text" id="inv-edit-reason" class="form-input" placeholder="Explain why this invoice is being modified (e.g. Dispatched 5 extra loaves as per warehouse receipt)...">
         </div>
 
         <div class="form-grid" style="margin-bottom: 20px;">
           <div class="form-group">
-            <label class="form-label">Outlet / Kitchen Branch <span class="req">*</span></label>
+            <label class="form-label">Warehouse / Trading Location Branch <span class="req">*</span></label>
             <select id="inv-outlet-select" class="form-select"></select>
           </div>
           <div class="form-group">
@@ -1016,16 +1014,16 @@
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-          <h4 style="font-size: 14px; font-weight: 700; color: var(--text-main);">Invoice Food Items</h4>
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--text-main);">Invoice Spice Products</h4>
           <button type="button" class="btn btn-secondary btn-sm" onclick="window.FCW.addInvoiceLineItem()">
-            + Add Another Food Item
+            + Add Another Spice Product
           </button>
         </div>
 
         <table class="line-items-table">
           <thead>
             <tr>
-              <th>Select Food Item from Catalog</th>
+              <th>Select Spice Product from Catalog</th>
               <th style="width: 90px;" class="text-center">Qty</th>
               <th style="width: 130px;" class="text-right">Unit Rate (₹)</th>
               <th style="width: 90px;" class="text-center">GST %</th>
@@ -1046,7 +1044,7 @@
               <strong id="modal-inv-subtotal">₹ 0.00</strong>
             </div>
             <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-              <span>Food GST / VAT:</span>
+              <span>Spice GST / VAT:</span>
               <strong id="modal-inv-tax">₹ 0.00</strong>
             </div>
             <div style="display: flex; justify-content: space-between; font-size: 17px; font-weight: 800; color: var(--primary-dark); border-top: 1px solid var(--border); padding-top: 6px;">
@@ -1063,21 +1061,21 @@
     </div>
   </div>
 
-  <!-- Modal: New Expense / Bill (Tagged to Outlet) -->
+  <!-- Modal: New Expense / Bill (Tagged to Warehouse) -->
   <div id="modal-new-expense" class="modal-overlay">
     <div class="modal-content modal-lg">
       <div class="modal-header">
-        <h3>Record Culinary Expense / Supplier Bill</h3>
+        <h3>Record Spice Trading Expense / Supplier Bill</h3>
         <button class="modal-close-btn">&times;</button>
       </div>
       <div class="modal-body">
         <div class="form-grid">
           <div class="form-group">
-            <label class="form-label">Incurred At Outlet / Kitchen Branch <span class="req">*</span></label>
+            <label class="form-label">Incurred At Warehouse / Trading Location Branch <span class="req">*</span></label>
             <select id="exp-outlet-select" class="form-select"></select>
           </div>
           <div class="form-group">
-            <label class="form-label">Food Supplier / Vendor</label>
+            <label class="form-label">Spice Supplier / Vendor</label>
             <select id="exp-vendor-select" class="form-select"></select>
           </div>
           <div class="form-group col-span-2">
